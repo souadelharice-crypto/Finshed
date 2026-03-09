@@ -3,1316 +3,1283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELITE SCRIPTS EVOLUTION - Premium Free Fire Scripts</title>
+    <title>RATFLIX SHOP - Premium Scripts & Protection</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
         * {
-            scrollbar-width: thin;
-            scrollbar-color: #00ff88 #05070a;
-        }
-
-        *::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        *::-webkit-scrollbar-track {
-            background: #05070a;
-        }
-
-        *::-webkit-scrollbar-thumb {
-            background: #00ff88;
-            border-radius: 4px;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         :root {
-            --primary-dark: #05070a;
-            --primary-neon: #00ff88;
-            --secondary-neon: #00d9ff;
-            --accent-purple: #7f39fb;
-            --danger-red: #ff3333;
+            --primary: #6366f1;
+            --secondary: #06b6d4;
+            --accent: #f43f5e;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f1f5f9;
         }
 
-        /* ===== CUSTOM FONTS & TYPOGRAPHY ===== */
-        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
-            font-family: 'IBM Plex Mono', monospace;
-            background-color: var(--primary-dark);
-            color: #e0e0e0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, #1e293b 100%);
+            color: #e2e8f0;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* ===== ANIMATED BACKGROUND GRID ===== */
-        .animated-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(0deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: 1;
-            animation: gridShift 20s linear infinite;
+        ::-webkit-scrollbar {
+            width: 10px;
         }
 
-        @keyframes gridShift {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(50px);
-            }
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
         }
 
-        /* ===== NEON GLOW EFFECTS ===== */
-        .neon-glow {
-            text-shadow: 0 0 10px var(--primary-neon), 0 0 20px var(--primary-neon), 0 0 40px rgba(0, 255, 136, 0.5);
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
         }
 
-        .neon-box {
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3), inset 0 0 20px rgba(0, 255, 136, 0.05);
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
         }
 
-        .neon-border {
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            position: relative;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
-        .neon-border::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon));
-            border-radius: 8px;
-            z-index: -1;
-            animation: borderPulse 3s ease-in-out infinite;
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.8); }
         }
 
-        @keyframes borderPulse {
-            0%, 100% {
-                opacity: 0.5;
-            }
-            50% {
-                opacity: 1;
-            }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        /* ===== GLASSMORPHISM ===== */
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .float-animation { animation: float 3s ease-in-out infinite; }
+        .glow-animation { animation: glow 3s ease-in-out infinite; }
+        .slide-right { animation: slideInRight 0.6s ease-out; }
+        .slide-left { animation: slideInLeft 0.6s ease-out; }
+        .fade-up { animation: fadeInUp 0.6s ease-out; }
+
         .glass {
-            background: rgba(5, 7, 10, 0.7);
+            background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 136, 0.1);
-            border-radius: 12px;
-        }
-
-        .glass-premium {
-            background: rgba(5, 7, 10, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 255, 136, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 16px;
         }
 
-        /* ===== HERO ANIMATIONS ===== */
-        .hero-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 8vw, 4.5rem);
-            font-weight: 900;
-            letter-spacing: 3px;
-            animation: titleSlide 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        .glass-secondary {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            border-radius: 12px;
         }
 
-        @keyframes titleSlide {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-subtitle {
-            font-family: 'Space Mono', monospace;
-            font-size: clamp(0.9rem, 3vw, 1.3rem);
-            animation: subtitleFade 1.5s ease-out 0.3s forwards;
-            opacity: 0;
-        }
-
-        @keyframes subtitleFade {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ===== PARTICLE EFFECT ===== */
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--primary-neon);
-            border-radius: 50%;
-            animation: particleFloat 15s ease-in infinite;
-        }
-
-        @keyframes particleFloat {
-            0%, 100% {
-                transform: translateY(0) translateX(0) opacity(1);
-            }
-            50% {
-                opacity: 0.5;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px) opacity(0);
-            }
-        }
-
-        /* ===== CARD HOVER EFFECTS ===== */
-        .card-hover {
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
-        }
-
-        .card-hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-            transition: left 0.5s;
-            z-index: 2;
-        }
-
-        .card-hover:hover::before {
-            left: 100%;
-        }
-
-        /* ===== BUTTON STYLES ===== */
-        .btn-neon {
-            position: relative;
-            padding: 12px 32px;
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
-            color: var(--primary-dark);
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
-        }
-
-        .btn-neon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: left 0.5s;
-        }
-
-        .btn-neon:hover::before {
-            left: 100%;
-        }
-
-        .btn-neon:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
-            letter-spacing: 2px;
-        }
-
-        .btn-outline {
-            padding: 12px 32px;
-            border: 2px solid var(--primary-neon);
-            background: transparent;
-            color: var(--primary-neon);
-            border-radius: 6px;
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-outline:hover {
-            background: rgba(0, 255, 136, 0.1);
-            transform: translateX(4px);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
-        }
-
-        /* ===== COUNTER ANIMATION ===== */
-        .counter {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--primary-neon);
-            text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-            animation: countUp 2.5s ease-out forwards;
-        }
-
-        @keyframes countUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ===== MOBILE MENU ===== */
-        .mobile-menu {
-            position: fixed;
-            left: -100%;
-            top: 0;
-            width: 80%;
-            height: 100vh;
-            background: rgba(5, 7, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-right: 2px solid var(--primary-neon);
-            transition: left 0.3s ease;
-            z-index: 999;
-            padding-top: 100px;
-        }
-
-        .mobile-menu.active {
-            left: 0;
-        }
-
-        .mobile-menu a {
-            display: block;
-            padding: 16px 24px;
-            color: var(--primary-neon);
-            text-decoration: none;
-            font-size: 1.1rem;
-            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
-            transition: all 0.2s;
-        }
-
-        .mobile-menu a:hover {
-            background: rgba(0, 255, 136, 0.1);
-            padding-left: 32px;
-        }
-
-        /* ===== STATUS BADGE ===== */
-        .status-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-top: 8px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .status-online {
-            background: rgba(0, 255, 136, 0.2);
-            color: var(--primary-neon);
-            border: 1px solid var(--primary-neon);
-        }
-
-        .status-detected {
-            background: rgba(255, 51, 51, 0.2);
-            color: var(--danger-red);
-            border: 1px solid var(--danger-red);
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7);
-            }
-            50% {
-                box-shadow: 0 0 0 8px rgba(0, 255, 136, 0);
-            }
-        }
-
-        /* ===== NAVBAR ===== */
-        .navbar {
-            position: relative;
-            z-index: 100;
-            background: rgba(5, 7, 10, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
-        }
-
-        .nav-link {
-            position: relative;
-            color: #e0e0e0;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: color 0.3s;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: var(--primary-neon);
-            transition: width 0.3s;
-        }
-
-        .nav-link:hover {
-            color: var(--primary-neon);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* ===== PRICING TABLE ===== */
-        .pricing-card {
-            transform: scale(1);
-            transition: all 0.4s ease;
-        }
-
-        .pricing-card.featured {
-            transform: scale(1.05);
-        }
-
-        .pricing-card:hover {
-            transform: scale(1.08);
-        }
-
-        .pricing-card.featured:hover {
-            transform: scale(1.12);
-        }
-
-        /* ===== TESTIMONIAL CAROUSEL ===== */
-        .slide-in {
-            animation: slideInUp 0.6s ease-out;
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .pricing-card.featured {
-                transform: scale(1);
-            }
-
-            .pricing-card:hover {
-                transform: scale(1.02);
-            }
-
-            .pricing-card.featured:hover {
-                transform: scale(1.05);
-            }
-        }
-
-        /* ===== LOADING SPINNER ===== */
-        .spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 3px solid rgba(0, 255, 136, 0.3);
-            border-top-color: var(--primary-neon);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* ===== GRADIENT TEXT ===== */
         .gradient-text {
-            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        /* ===== CUSTOM SCROLLBAR FOR MODALS ===== */
-        .modal {
+        .gradient-accent {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-primary {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-secondary {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--secondary) 0%, #0891b2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(6, 182, 212, 0.5);
+        }
+
+        .btn-accent {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--accent) 0%, #e11d48 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(244, 63, 94, 0.3);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(244, 63, 94, 0.5);
+        }
+
+        .btn-buy {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--secondary) 0%, #0891b2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .btn-buy:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            right: auto;
+            left: 0;
+        }
+
+        .product-card {
+            background: var(--dark);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .product-card:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .product-downloads {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+
+        .product-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-box {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 380px;
+            height: 500px;
+            background: var(--dark);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
+            z-index: 500;
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        .chat-header {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            display: flex;
+            gap: 10px;
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 70%;
+            word-wrap: break-word;
+            font-size: 0.95rem;
+        }
+
+        .message.ai .message-bubble {
+            background: rgba(99, 102, 241, 0.2);
+            border-left: 3px solid var(--primary);
+            color: #cbd5e1;
+        }
+
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .chat-input {
+            padding: 15px;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chat-input input::placeholder {
+            color: #64748b;
+        }
+
+        .chat-input button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .chat-input button:hover {
+            transform: scale(1.05);
+        }
+
+        .chat-toggle {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            z-index: 400;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-toggle.hidden {
+            display: none;
+        }
+
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            right: -500px;
+            width: 500px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+            border-left: 2px solid rgba(99, 102, 241, 0.3);
             z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .admin-panel.active {
+            right: 0;
+        }
+
+        .admin-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .admin-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .admin-section {
+            margin-bottom: 20px;
+        }
+
+        .admin-section h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: white;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .admin-input::placeholder {
+            color: #64748b;
+        }
+
+        .admin-btn {
+            width: 100%;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .admin-btn:hover {
+            background: #4f46e5;
+            transform: translateY(-2px);
+        }
+
+        .admin-btn.danger {
+            background: var(--accent);
+        }
+
+        .admin-btn.danger:hover {
+            background: #e11d48;
+        }
+
+        .product-item {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .product-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .product-item-header button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+            padding: 40px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            animation: fadeInUp 0.3s ease-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-section {
+            margin-bottom: 25px;
+        }
+
+        .modal-section h3 {
+            color: var(--secondary);
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .contact-info {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            color: var(--secondary);
+            min-width: 100px;
+        }
+
+        .contact-value {
+            color: #cbd5e1;
+            word-break: break-all;
+        }
+
+        .contact-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .contact-link:hover {
+            color: var(--secondary);
+        }
+
+        .copy-btn {
+            background: rgba(6, 182, 212, 0.2);
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-left: auto;
+        }
+
+        .copy-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .hero-bg {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .chat-box {
+                width: 100%;
+                height: 400px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 16px 16px 0 0;
+            }
+
+            .admin-panel {
+                width: 100%;
+                right: -100%;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+
+        .hidden-element {
+            display: none !important;
+        }
+
+        .success-message {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+            color: #86efac;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <div class="animated-grid"></div>
-    <div class="relative z-10">
-        <!-- ===== NAVBAR ===== -->
-        <nav class="navbar sticky top-0">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-20">
-                    <!-- Logo -->
-                    <div class="flex items-center space-x-2">
-                        <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-cyan-400 rounded-lg flex items-center justify-center">
-                            <span class="text-black font-black text-lg">⚡</span>
-                        </div>
-                        <span class="text-xl font-black tracking-wider hidden sm:inline neon-glow">ELITE</span>
-                    </div>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="nav-logo gradient-text">RATFLIX</div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="btn-primary" onclick="toggleAdminPanel()">⚙️ Admin</button>
+        </div>
+    </nav>
 
-                    <!-- Desktop Menu -->
-                    <div class="hidden md:flex space-x-8">
-                        <a href="#features" class="nav-link">Features</a>
-                        <a href="#scripts" class="nav-link">Store</a>
-                        <a href="#pricing" class="nav-link">Pricing</a>
-                        <a href="#stats" class="nav-link">Stats</a>
-                    </div>
-
-                    <!-- Mobile Toggle & CTA -->
-                    <div class="flex items-center space-x-4">
-                        <button class="btn-neon text-sm px-4 py-2" onclick="scrollToSection('scripts')">Buy Now</button>
-                        <button class="md:hidden text-green-400 hover:text-green-300" onclick="toggleMobileMenu()">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="#features">Features</a>
-            <a href="#scripts">Store</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#stats">Live Stats</a>
-            <a href="https://t.me/zv88v" target="_blank" class="bg-green-500 text-black m-4 rounded">Telegram Support</a>
+    <!-- ===== HERO SECTION ===== -->
+    <section id="hero" class="hero-bg">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-20 left-10 w-96 h-96 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+            <div class="absolute top-40 right-10 w-96 h-96 bg-cyan-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+            <div class="absolute bottom-20 left-1/2 w-96 h-96 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
         </div>
 
-        <!-- ===== HERO SECTION ===== -->
-        <section class="relative min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20">
-            <!-- Animated Background Elements -->
-            <div class="absolute inset-0 opacity-20">
-                <div class="absolute top-20 left-10 w-72 h-72 bg-green-500 rounded-full mix-blend-multiply filter blur-3xl animation-pulse"></div>
-                <div class="absolute bottom-20 right-10 w-72 h-72 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl animation-pulse animation-delay-2000"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="gradient-text">RATFLIX</span>
+                <span class="gradient-accent">SHOP</span>
+            </h1>
+            <p class="hero-subtitle">Premium Scripts, Protection & Panel Solutions 🔒</p>
+            <div class="flex gap-4 justify-center flex-wrap">
+                <button class="btn-primary" onclick="scrollTo('products')">Shop Now</button>
+                <button class="btn-secondary" onclick="scrollTo('products')">Explore Products</button>
             </div>
+            <p style="margin-top: 30px; color: #cbd5e1;">✨ Daily Updates | 🛡️ 100% Security | ⚡ 24/7 Support</p>
+        </div>
+    </section>
 
-            <!-- Particles -->
-            <div id="particleContainer"></div>
+    <!-- ===== PRODUCTS SECTION ===== -->
+    <section id="products" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Available Products</h2>
 
-            <!-- Main Content -->
-            <div class="relative z-10 text-center px-4 max-w-4xl">
-                <h1 class="hero-title neon-glow">
-                    ELITE SCRIPTS<br>EVOLUTION
-                </h1>
-                <p class="hero-subtitle text-green-300 text-lg md:text-xl">
-                    Premium Anti-Ban Scripts | Lightning Fast | Trusted by 50,000+ Players
-                </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="productsGrid">
+                <!-- Products will be loaded here by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT SECTION ===== -->
+    <section id="about" class="py-20 px-4 bg-gradient-to-b from-transparent to-indigo-900/10">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Why Choose RATFLIX?</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass p-8 rounded-lg text-center fade-up">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">🚀</div>
+                    <h3 class="text-xl font-bold mb-4 gradient-text">Ultra Fast</h3>
+                    <p class="text-gray-400">Lightning-fast scripts with real-time updates</p>
+                </div>
+
+                <div class="glass p-8 rounded-lg text-center fade-up" style="animation-delay: 0.1s;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">🛡️</div>
+                    <h3 class="text-xl font-bold mb-4 gradient-text">100% Safe</h3>
+                    <p class="text-gray-400">Military-grade protection against detection systems</p>
+                </div>
+
+                <div class="glass p-8 rounded-lg text-center fade-up" style="animation-delay: 0.2s;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">💬</div>
+                    <h3 class="text-xl font-bold mb-4 gradient-text">Direct Support</h3>
+                    <p class="text-gray-400">Direct contact with developer for assistance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section id="contact" class="py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-12 gradient-text">Get in Touch</h2>
+            
+            <div class="glass p-12 rounded-lg">
+                <h3 class="text-2xl font-bold mb-8 gradient-accent">Developer Contact Information</h3>
                 
-                <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12">
-                    <button class="btn-neon" onclick="scrollToSection('scripts')">
-                        → View Store
-                    </button>
-                    <button class="btn-outline" onclick="scrollToSection('features')">
-                        Learn More
-                    </button>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass-secondary p-8 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-cyan-400">Telegram</h4>
+                        <a href="https://t.me/relaxFlyvic" target="_blank" class="text-indigo-400 hover:text-indigo-300 text-lg font-bold break-all">
+                            @relaxFlyvic
+                        </a>
+                        <p class="text-gray-400 mt-4">Fastest response time 💬</p>
+                    </div>
+
+                    <div class="glass-secondary p-8 rounded-lg">
+                        <h4 class="text-xl font-bold mb-4 text-cyan-400">WhatsApp</h4>
+                        <a href="https://wa.me/34632076449" target="_blank" class="text-indigo-400 hover:text-indigo-300 text-lg font-bold">
+                            +34 632 07 64 49
+                        </a>
+                        <p class="text-gray-400 mt-4">For custom requests 📱</p>
+                    </div>
                 </div>
 
-                <!-- Trust Badge -->
-                <div class="mt-12 flex justify-center items-center space-x-8 text-sm md:text-base">
-                    <div class="text-center">
-                        <p class="text-green-400 font-bold">✓ 99.9% Safe</p>
-                        <p class="text-gray-500 text-xs">Anti-Detected</p>
-                    </div>
-                    <div class="w-px h-8 bg-green-400 opacity-30"></div>
-                    <div class="text-center">
-                        <p class="text-green-400 font-bold">✓ 24/7 Support</p>
-                        <p class="text-gray-500 text-xs">Telegram Channel</p>
-                    </div>
-                    <div class="w-px h-8 bg-green-400 opacity-30"></div>
-                    <div class="text-center">
-                        <p class="text-green-400 font-bold">✓ Instant Updates</p>
-                        <p class="text-gray-500 text-xs">Real-time Patches</p>
-                    </div>
+                <div class="mt-12 p-6 bg-red-500/10 border border-red-500/30 rounded-lg">
+                    <p class="text-red-400 font-bold mb-2">⚠️ Security Warning</p>
+                    <p class="text-gray-400">Only contact through official links above. Do not trust other sources.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-gradient-to-t from-indigo-900/20 to-transparent py-10 px-4 border-t border-indigo-500/20">
+        <div class="max-w-7xl mx-auto text-center text-gray-500">
+            <p>© 2024 RATFLIX SHOP - All Rights Reserved | Made with ❤️</p>
+            <p class="mt-2 text-sm">Use products responsibly and in accordance with local laws</p>
+        </div>
+    </footer>
+
+    <!-- ===== PURCHASE MODAL ===== -->
+    <div class="modal" id="purchaseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalProductName">Product Name</h2>
+                <button class="modal-close" onclick="closePurchaseModal()">✕</button>
+            </div>
+
+            <div class="modal-section">
+                <h3>Product Details</h3>
+                <div style="background: rgba(99, 102, 241, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                    <p id="modalProductDesc" style="color: #cbd5e1; margin-bottom: 10px;"></p>
+                    <p style="color: #64748b; font-size: 0.9rem;">⬇️ Downloads: <span id="modalProductDownloads"></span></p>
                 </div>
             </div>
 
-            <!-- Scroll Indicator -->
-            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-                <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-                </svg>
+            <div class="modal-section">
+                <h3>💼 Contact Developer to Purchase</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-label">Telegram:</span>
+                        <span class="contact-value">@relaxFlyvic</span>
+                        <button class="copy-btn" onclick="copyToClipboard('@relaxFlyvic')">Copy</button>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">WhatsApp:</span>
+                        <span class="contact-value">+34 632 07 64 49</span>
+                        <button class="copy-btn" onclick="copyToClipboard('+34 632 07 64 49')">Copy</button>
+                    </div>
+                </div>
+                <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 15px;">
+                    📌 Tell the developer the product name. Instant delivery after payment!
+                </p>
             </div>
-        </section>
 
-        <!-- ===== FEATURES SECTION ===== -->
-        <section id="features" class="relative py-20 px-4">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-black mb-4 neon-glow">
-                        Why Choose<br><span class="gradient-text">ELITE SCRIPTS?</span>
-                    </h2>
-                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-                        Industry-leading technology meets premium support for unmatched performance
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Feature 1 -->
-                    <div class="card-hover glass-premium p-8 rounded-xl neon-box">
-                        <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-cyan-400 rounded-lg flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-green-400">Lightning Fast Updates</h3>
-                        <p class="text-gray-400 mb-6">New patches deployed within seconds of detection. Real-time monitoring ensures your scripts always stay undetected.</p>
-                        <div class="flex items-center text-green-400 font-mono text-sm">
-                            <span class="inline-block w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                            Average update: 2 seconds
-                        </div>
-                    </div>
-
-                    <!-- Feature 2 -->
-                    <div class="card-hover glass-premium p-8 rounded-xl neon-box">
-                        <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-cyan-400 rounded-lg flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-green-400">100% Anti-Ban Security</h3>
-                        <p class="text-gray-400 mb-6">Military-grade encryption & obfuscation. Protected with advanced fingerprint cloaking and behavioral detection bypasses.</p>
-                        <div class="flex items-center text-green-400 font-mono text-sm">
-                            <span class="inline-block w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                            Zero bans reported
-                        </div>
-                    </div>
-
-                    <!-- Feature 3 -->
-                    <div class="card-hover glass-premium p-8 rounded-xl neon-box">
-                        <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-cyan-400 rounded-lg flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4 text-green-400">Dedicated Support Team</h3>
-                        <p class="text-gray-400 mb-6">Premium support via Telegram. Expert assistance available 24/7 with guaranteed response time under 15 minutes.</p>
-                        <div class="flex items-center text-green-400 font-mono text-sm">
-                            <span class="inline-block w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                            15 min avg response
-                        </div>
-                    </div>
-                </div>
+            <div class="modal-section">
+                <h3>Quick Links</h3>
+                <a href="https://t.me/relaxFlyvic" target="_blank" class="btn-secondary" style="width: 100%; display: inline-block; text-align: center; margin-bottom: 10px; text-decoration: none;">
+                    📱 Open Telegram
+                </a>
+                <a href="https://wa.me/34632076449" target="_blank" class="btn-accent" style="width: 100%; display: inline-block; text-align: center; text-decoration: none;">
+                    💬 Open WhatsApp
+                </a>
             </div>
-        </section>
 
-        <!-- ===== SCRIPT SHOWCASE / STORE ===== -->
-        <section id="scripts" class="relative py-20 px-4">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-black mb-4 neon-glow">
-                        Script Store
-                    </h2>
-                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-                        Handpicked, battle-tested scripts. Updated daily. Risk-free guarantee.
-                    </p>
-                </div>
-
-                <!-- Script Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Script Card 1 -->
-                    <div class="card-hover glass-premium p-6 rounded-xl neon-box overflow-hidden group">
-                        <div class="absolute inset-0 bg-gradient-to-br from-green-400/10 to-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="relative z-10">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 class="text-xl font-bold text-green-400">Precision Aim</h3>
-                                    <p class="text-gray-500 font-mono text-sm">v2.5</p>
-                                </div>
-                                <span class="status-badge status-online">ONLINE</span>
-                            </div>
-                            
-                            <p class="text-gray-400 text-sm mb-6">Advanced aimbot with adaptive recoil control. Undetectable targeting system with behavioral normalization.</p>
-                            
-                            <div class="space-y-3">
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Compatibility:</span>
-                                    <span class="text-green-400">Latest Build</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Users:</span>
-                                    <span class="text-cyan-400">12.5K+</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Rating:</span>
-                                    <span class="text-yellow-400">★★★★★</span>
-                                </div>
-                            </div>
-
-                            <div class="mt-6 pt-6 border-t border-green-400/20 flex justify-between items-center">
-                                <span class="text-2xl font-black neon-glow">$49.99</span>
-                                <button class="btn-neon px-4 py-2 text-sm">
-                                    GET NOW
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Script Card 2 -->
-                    <div class="card-hover glass-premium p-6 rounded-xl neon-box overflow-hidden group md:row-span-2 border border-green-400/50">
-                        <div class="absolute inset-0 bg-gradient-to-br from-green-400/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="relative z-10">
-                            <div class="inline-block bg-gradient-to-r from-green-400 to-cyan-400 text-black px-4 py-1 rounded-full font-black text-xs mb-4">⭐ MOST POPULAR</div>
-                            
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-green-400">Ultimate Bundle</h3>
-                                    <p class="text-gray-500 font-mono text-sm">v3.0 PRO</p>
-                                </div>
-                                <span class="status-badge status-online">ONLINE</span>
-                            </div>
-                            
-                            <p class="text-gray-400 text-sm mb-4">Complete package: Aimbot + ESP + Speed. Anti-detection 3.0 with ML-based behavior simulation.</p>
-                            
-                            <ul class="space-y-2 mb-6 text-sm text-gray-300">
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Precision Aimbot</li>
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Advanced ESP System</li>
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Speed Control</li>
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Lifetime Updates</li>
-                                <li class="flex items-center"><span class="text-green-400 mr-2">✓</span> Priority Support</li>
-                            </ul>
-
-                            <div class="space-y-3 mb-6 pb-6 border-b border-green-400/20">
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Users:</span>
-                                    <span class="text-cyan-400">28.7K+</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Rating:</span>
-                                    <span class="text-yellow-400">★★★★★ (4.9/5)</span>
-                                </div>
-                            </div>
-
-                            <div class="flex justify-between items-end">
-                                <div>
-                                    <p class="text-gray-500 text-xs mb-1">Original Price: $129</p>
-                                    <span class="text-3xl font-black gradient-text">$79.99</span>
-                                </div>
-                                <button class="btn-neon px-6 py-3 text-sm font-bold">
-                                    BUY NOW
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Script Card 3 -->
-                    <div class="card-hover glass-premium p-6 rounded-xl neon-box overflow-hidden group">
-                        <div class="absolute inset-0 bg-gradient-to-br from-green-400/10 to-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="relative z-10">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 class="text-xl font-bold text-green-400">Stealth ESP</h3>
-                                    <p class="text-gray-500 font-mono text-sm">v1.9</p>
-                                </div>
-                                <span class="status-badge status-online">ONLINE</span>
-                            </div>
-                            
-                            <p class="text-gray-400 text-sm mb-6">Premium wall hack with intelligent visibility detection. See through walls without detection algorithms.</p>
-                            
-                            <div class="space-y-3">
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Compatibility:</span>
-                                    <span class="text-green-400">Latest Build</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Users:</span>
-                                    <span class="text-cyan-400">9.2K+</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Rating:</span>
-                                    <span class="text-yellow-400">★★★★☆</span>
-                                </div>
-                            </div>
-
-                            <div class="mt-6 pt-6 border-t border-green-400/20 flex justify-between items-center">
-                                <span class="text-2xl font-black neon-glow">$39.99</span>
-                                <button class="btn-neon px-4 py-2 text-sm">
-                                    GET NOW
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Script Card 4 -->
-                    <div class="card-hover glass-premium p-6 rounded-xl neon-box overflow-hidden group">
-                        <div class="absolute inset-0 bg-gradient-to-br from-green-400/10 to-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="relative z-10">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 class="text-xl font-bold text-green-400">Velocity Control</h3>
-                                    <p class="text-gray-500 font-mono text-sm">v2.1</p>
-                                </div>
-                                <span class="status-badge status-online">ONLINE</span>
-                            </div>
-                            
-                            <p class="text-gray-400 text-sm mb-6">Speed hack with natural motion patterns. Humanized movement detection evasion for seamless gameplay.</p>
-                            
-                            <div class="space-y-3">
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Compatibility:</span>
-                                    <span class="text-green-400">Latest Build</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Users:</span>
-                                    <span class="text-cyan-400">7.8K+</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Rating:</span>
-                                    <span class="text-yellow-400">★★★★★</span>
-                                </div>
-                            </div>
-
-                            <div class="mt-6 pt-6 border-t border-green-400/20 flex justify-between items-center">
-                                <span class="text-2xl font-black neon-glow">$44.99</span>
-                                <button class="btn-neon px-4 py-2 text-sm">
-                                    GET NOW
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Script Card 5 -->
-                    <div class="card-hover glass-premium p-6 rounded-xl neon-box overflow-hidden group">
-                        <div class="absolute inset-0 bg-gradient-to-br from-green-400/10 to-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="relative z-10">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 class="text-xl font-bold text-green-400">Trigger Bot</h3>
-                                    <p class="text-gray-500 font-mono text-sm">v1.6</p>
-                                </div>
-                                <span class="status-badge status-detected">DETECTED</span>
-                            </div>
-                            
-                            <p class="text-gray-400 text-sm mb-6">Instant fire activation with pixel-perfect detection. Coming soon with improved anti-cheat bypass.</p>
-                            
-                            <div class="space-y-3">
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Compatibility:</span>
-                                    <span class="text-red-400">Updating</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Status:</span>
-                                    <span class="text-red-400">Maintenance</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">ETA:</span>
-                                    <span class="text-yellow-400">24 hours</span>
-                                </div>
-                            </div>
-
-                            <div class="mt-6 pt-6 border-t border-red-400/20 flex justify-between items-center">
-                                <span class="text-2xl font-black text-red-400">$34.99</span>
-                                <button class="btn-outline px-4 py-2 text-sm opacity-50 cursor-not-allowed" disabled>
-                                    COMING SOON
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Script Card 6 -->
-                    <div class="card-hover glass-premium p-6 rounded-xl neon-box overflow-hidden group">
-                        <div class="absolute inset-0 bg-gradient-to-br from-green-400/10 to-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="relative z-10">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 class="text-xl font-bold text-green-400">Map Reveal</h3>
-                                    <p class="text-gray-500 font-mono text-sm">v1.4</p>
-                                </div>
-                                <span class="status-badge status-online">ONLINE</span>
-                            </div>
-                            
-                            <p class="text-gray-400 text-sm mb-6">Full minimap display of enemy positions. Real-time tactical information without triggering anti-cheat.</p>
-                            
-                            <div class="space-y-3">
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Compatibility:</span>
-                                    <span class="text-green-400">Latest Build</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Users:</span>
-                                    <span class="text-cyan-400">5.3K+</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="text-gray-500">Rating:</span>
-                                    <span class="text-yellow-400">★★★★☆</span>
-                                </div>
-                            </div>
-
-                            <div class="mt-6 pt-6 border-t border-green-400/20 flex justify-between items-center">
-                                <span class="text-2xl font-black neon-glow">$29.99</span>
-                                <button class="btn-neon px-4 py-2 text-sm">
-                                    GET NOW
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CTA Button -->
-                <div class="mt-16 text-center">
-                    <p class="text-gray-400 mb-6">✓ 100% Money-Back Guarantee | ✓ Lifetime Updates | ✓ Instant Delivery</p>
-                </div>
+            <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); padding: 12px; border-radius: 8px; margin-top: 15px;">
+                <p style="color: #86efac; font-size: 0.9rem; margin: 0;">✅ Secure transactions • ✅ Instant delivery • ✅ 24/7 Support</p>
             </div>
-        </section>
-
-        <!-- ===== PRICING SECTION ===== -->
-        <section id="pricing" class="relative py-20 px-4">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-black mb-4 neon-glow">
-                        Choose Your Plan
-                    </h2>
-                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-                        Flexible pricing for every player. Upgrade anytime, no hidden fees.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Standard Plan -->
-                    <div class="pricing-card glass-premium p-8 rounded-xl neon-box">
-                        <h3 class="text-2xl font-bold mb-2">Standard</h3>
-                        <p class="text-gray-500 mb-6">Single script access</p>
-                        <div class="mb-8">
-                            <span class="text-4xl font-black neon-glow">$34.99</span>
-                            <p class="text-gray-500 text-sm mt-2">/month</p>
-                        </div>
-                        <button class="btn-neon w-full mb-8">Get Started</button>
-                        <ul class="space-y-4 mb-8">
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                1 Script License
-                            </li>
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                Basic Support
-                            </li>
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                Monthly Updates
-                            </li>
-                            <li class="flex items-center text-sm text-gray-600">
-                                <span class="text-gray-600 mr-3">✗</span>
-                                Priority Support
-                            </li>
-                            <li class="flex items-center text-sm text-gray-600">
-                                <span class="text-gray-600 mr-3">✗</span>
-                                Beta Scripts
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- VIP Plan (Featured) -->
-                    <div class="pricing-card featured glass-premium p-8 rounded-xl border-2 border-green-400 relative">
-                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-400 to-cyan-400 text-black px-6 py-1 rounded-full font-black text-sm">
-                            MOST POPULAR
-                        </div>
-                        <h3 class="text-2xl font-bold mb-2 text-green-400">VIP Pro</h3>
-                        <p class="text-gray-500 mb-6">All scripts + priority support</p>
-                        <div class="mb-8">
-                            <span class="text-4xl font-black gradient-text">$79.99</span>
-                            <p class="text-gray-500 text-sm mt-2">/month</p>
-                        </div>
-                        <button class="btn-neon w-full mb-8 font-bold">Get VIP Access</button>
-                        <ul class="space-y-4 mb-8">
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                All Scripts (6+ Active)
-                            </li>
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                24/7 Priority Support
-                            </li>
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                Real-time Updates
-                            </li>
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                Beta Scripts Access
-                            </li>
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                Custom Configurations
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Elite Plan -->
-                    <div class="pricing-card glass-premium p-8 rounded-xl neon-box">
-                        <h3 class="text-2xl font-bold mb-2">Elite</h3>
-                        <p class="text-gray-500 mb-6">VIP + private scripts</p>
-                        <div class="mb-8">
-                            <span class="text-4xl font-black neon-glow">$149.99</span>
-                            <p class="text-gray-500 text-sm mt-2">/month</p>
-                        </div>
-                        <button class="btn-neon w-full mb-8">Contact Support</button>
-                        <ul class="space-y-4 mb-8">
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                Everything in VIP
-                            </li>
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                Private Exclusive Scripts
-                            </li>
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                1-on-1 Support Agent
-                            </li>
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                Custom Script Development
-                            </li>
-                            <li class="flex items-center text-sm">
-                                <span class="text-green-400 mr-3">✓</span>
-                                White-Label Options
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== LIVE STATISTICS SECTION ===== -->
-        <section id="stats" class="relative py-20 px-4">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl md:text-5xl font-black mb-4 neon-glow">
-                        Live Platform Stats
-                    </h2>
-                    <p class="text-gray-400 text-lg">Real-time metrics powered by our infrastructure</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Stat 1 -->
-                    <div class="glass-premium p-8 rounded-xl neon-box text-center">
-                        <p class="text-gray-500 text-sm mb-4 uppercase tracking-wider">Active Users</p>
-                        <p class="counter" data-target="50847">0</p>
-                        <p class="text-gray-500 text-xs mt-4 font-mono">+1,240 this month</p>
-                    </div>
-
-                    <!-- Stat 2 -->
-                    <div class="glass-premium p-8 rounded-xl neon-box text-center">
-                        <p class="text-gray-500 text-sm mb-4 uppercase tracking-wider">Total Downloads</p>
-                        <p class="counter" data-target="487932">0</p>
-                        <p class="text-gray-500 text-xs mt-4 font-mono">+12.5K this week</p>
-                    </div>
-
-                    <!-- Stat 3 -->
-                    <div class="glass-premium p-8 rounded-xl neon-box text-center">
-                        <p class="text-gray-500 text-sm mb-4 uppercase tracking-wider">System Uptime</p>
-                        <p class="counter" data-target="99.97">0</p>
-                        <p class="text-gray-500 text-xs mt-4 font-mono">%</p>
-                    </div>
-
-                    <!-- Stat 4 -->
-                    <div class="glass-premium p-8 rounded-xl neon-box text-center">
-                        <p class="text-gray-500 text-sm mb-4 uppercase tracking-wider">Ban Reports</p>
-                        <p class="counter" data-target="0">0</p>
-                        <p class="text-gray-500 text-xs mt-4 font-mono">This year</p>
-                    </div>
-                </div>
-
-                <!-- Script Status Dashboard -->
-                <div class="mt-16">
-                    <h3 class="text-2xl font-bold mb-8 neon-glow">Script Status Dashboard</h3>
-                    
-                    <div class="space-y-3">
-                        <!-- Status Item 1 -->
-                        <div class="glass p-4 rounded-lg flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                                <span class="font-mono text-sm">Precision Aim v2.5</span>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <span class="text-green-400 text-sm font-bold">SAFE</span>
-                                <span class="text-gray-500 text-xs">Last update: 2 mins ago</span>
-                            </div>
-                        </div>
-
-                        <!-- Status Item 2 -->
-                        <div class="glass p-4 rounded-lg flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                                <span class="font-mono text-sm">Stealth ESP v1.9</span>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <span class="text-green-400 text-sm font-bold">SAFE</span>
-                                <span class="text-gray-500 text-xs">Last update: 45 mins ago</span>
-                            </div>
-                        </div>
-
-                        <!-- Status Item 3 -->
-                        <div class="glass p-4 rounded-lg flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                                <span class="font-mono text-sm">Ultimate Bundle v3.0</span>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <span class="text-green-400 text-sm font-bold">SAFE</span>
-                                <span class="text-gray-500 text-xs">Last update: 8 mins ago</span>
-                            </div>
-                        </div>
-
-                        <!-- Status Item 4 -->
-                        <div class="glass p-4 rounded-lg flex items-center justify-between border border-red-400/50">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-3 h-3 bg-red-400 animate-pulse"></div>
-                                <span class="font-mono text-sm">Trigger Bot v1.6</span>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <span class="text-red-400 text-sm font-bold">MAINTENANCE</span>
-                                <span class="text-gray-500 text-xs">ETA: 24 hours</span>
-                            </div>
-                        </div>
-
-                        <!-- Status Item 5 -->
-                        <div class="glass p-4 rounded-lg flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                                <span class="font-mono text-sm">Velocity Control v2.1</span>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <span class="text-green-400 text-sm font-bold">SAFE</span>
-                                <span class="text-gray-500 text-xs">Last update: 3 hours ago</span>
-                            </div>
-                        </div>
-
-                        <!-- Status Item 6 -->
-                        <div class="glass p-4 rounded-lg flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                                <span class="font-mono text-sm">Map Reveal v1.4</span>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <span class="text-green-400 text-sm font-bold">SAFE</span>
-                                <span class="text-gray-500 text-xs">Last update: 1 hour ago</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== FOOTER ===== -->
-        <footer class="relative border-t border-green-400/20 bg-gradient-to-b from-transparent to-black/50 py-16 px-4">
-            <div class="max-w-6xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                    <!-- Brand -->
-                    <div>
-                        <h4 class="text-xl font-bold mb-4 neon-glow">ELITE SCRIPTS</h4>
-                        <p class="text-gray-500 text-sm">Premium gaming scripts for competitive advantage. Zero tolerance for bans.</p>
-                    </div>
-
-                    <!-- Quick Links -->
-                    <div>
-                        <h5 class="font-bold mb-4 text-green-400">Products</h5>
-                        <ul class="space-y-2 text-sm text-gray-500">
-                            <li><a href="#scripts" class="hover:text-green-400 transition">Script Store</a></li>
-                            <li><a href="#pricing" class="hover:text-green-400 transition">Pricing</a></li>
-                            <li><a href="#stats" class="hover:text-green-400 transition">Status</a></li>
-                            <li><a href="#features" class="hover:text-green-400 transition">Features</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Support -->
-                    <div>
-                        <h5 class="font-bold mb-4 text-green-400">Support</h5>
-                        <ul class="space-y-2 text-sm text-gray-500">
-                            <li><a href="https://t.me/zv88v" target="_blank" class="hover:text-green-400 transition">Telegram Support</a></li>
-                            <li><a href="#" class="hover:text-green-400 transition">Documentation</a></li>
-                            <li><a href="#" class="hover:text-green-400 transition">FAQ</a></li>
-                            <li><a href="#" class="hover:text-green-400 transition">Contact</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Social -->
-                    <div>
-                        <h5 class="font-bold mb-4 text-green-400">Connect</h5>
-                        <div class="flex space-x-4">
-                            <a href="https://t.me/zv88v" target="_blank" class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-green-400/20 transition">
-                                <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 0c6.6 0 12 5.4 12 12s-5.4 12-12 12S0 18.6 0 12 5.4 0 12 0zm5.491 7.726c.106 2.339-1.517 10.308-7.044 13.708-.329.203-.815.122-1.031-.327l-2.052-6.356c-.118-.355-.42-.595-.795-.595H8c-.552 0-1-.448-1-1v-4c0-.552.448-1 1-1h1.732c.468 0 .898-.286 1.07-.722l1.704-5.112c.174-.523.693-.851 1.27-.851.577 0 1.096.328 1.27.851l1.704 5.112c.172.436.602.722 1.07.722h1.732c.552 0 1 .448 1 1v4c0 .552-.448 1-1 1h-1.496c-.375 0-.677.24-.795.595l-2.052 6.356c-.216.449-.702.53-1.031.327-5.527-3.4-7.15-11.369-7.044-13.708.033-.799.73-1.427 1.537-1.427.798 0 1.486.593 1.537 1.389.068 1.059.373 3.802 1.87 5.754 1.497-1.952 1.802-4.695 1.87-5.754.051-.796.739-1.389 1.537-1.389.807 0 1.504.628 1.537 1.427z"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Divider -->
-                <div class="border-t border-green-400/10 pt-8"></div>
-
-                <!-- Bottom Info -->
-                <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-                    <p>&copy; 2024 ELITE SCRIPTS EVOLUTION. All rights reserved.</p>
-                    <div class="flex space-x-6 mt-4 md:mt-0">
-                        <a href="#" class="hover:text-green-400 transition">Privacy Policy</a>
-                        <a href="#" class="hover:text-green-400 transition">Terms of Service</a>
-                        <a href="#" class="hover:text-green-400 transition">Legal</a>
-                    </div>
-                </div>
-
-                <!-- Legal Disclaimer -->
-                <div class="mt-8 p-4 glass rounded-lg text-xs text-gray-600 border border-gray-700/50">
-                    <p class="font-bold mb-2 text-gray-400">⚠️ LEGAL DISCLAIMER</p>
-                    <p>ELITE SCRIPTS is provided for educational and research purposes only. Users are solely responsible for how they use this product. We do not condone cheating in competitive gaming environments. By purchasing and using ELITE SCRIPTS, you agree that you are using it at your own risk. The developers are not responsible for any bans, account suspensions, or legal consequences resulting from the use of this product. Free Fire is a registered trademark of Garena. This is an independent product and is not affiliated with or endorsed by Garena.</p>
-                </div>
-            </div>
-        </footer>
+        </div>
     </div>
 
-    <!-- JavaScript -->
+    <!-- ===== CHAT BOX ===== -->
+    <div class="chat-box glass" id="chatBox">
+        <div class="chat-header">
+            <span>🤖 RATFLIX Assistant</span>
+            <button onclick="toggleChat()" style="background: none; border: none; color: white; cursor: pointer;">✕</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai">
+                <div class="message-bubble">👋 Hello! I'm your RATFLIX AI Assistant. How can I help you today?</div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Type your question..." onkeypress="handleChatInput(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <button class="chat-toggle" id="chatToggle" onclick="toggleChat()">💬</button>
+
+    <!-- ===== ADMIN PANEL ===== -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <span>⚙️ Control Panel</span>
+            <button onclick="toggleAdminPanel()" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.5rem;">✕</button>
+        </div>
+
+        <div class="admin-content">
+            <!-- Login Section -->
+            <div id="adminLogin" class="admin-section">
+                <h3>Admin Login</h3>
+                <input type="password" id="adminPassword" placeholder="Enter password" class="admin-input">
+                <button class="admin-btn" onclick="adminLogin()">Login</button>
+                <div id="loginError" style="color: var(--accent); display: none; margin-top: 10px;"></div>
+            </div>
+
+            <!-- Admin Dashboard -->
+            <div id="adminDashboard" class="hidden-element">
+                <!-- Add Product -->
+                <div class="admin-section">
+                    <h3>➕ Add New Product</h3>
+                    <input type="text" id="productName" placeholder="Product Name" class="admin-input">
+                    <input type="text" id="productType" placeholder="Type (shot/hologram/panel/protection)" class="admin-input">
+                    <textarea id="productDesc" placeholder="Product Description" class="admin-input" rows="3" style="resize: vertical;"></textarea>
+                    <input type="text" id="productImage" placeholder="Image URL or Emoji" class="admin-input">
+                    <button class="admin-btn" onclick="addProduct()">Add Product</button>
+                </div>
+
+                <!-- Products List -->
+                <div class="admin-section">
+                    <h3>📦 Manage Products</h3>
+                    <div id="productsList"></div>
+                </div>
+
+                <!-- Site Settings -->
+                <div class="admin-section">
+                    <h3>⚙️ Site Settings</h3>
+                    <input type="text" id="siteTitle" placeholder="Site Title" class="admin-input">
+                    <textarea id="siteDescription" placeholder="Site Description" class="admin-input" rows="3"></textarea>
+                    <button class="admin-btn" onclick="saveSiteSettings()">Save Settings</button>
+                </div>
+
+                <!-- Logout -->
+                <button class="admin-btn danger" onclick="adminLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
     <script>
-        // ===== Mobile Menu Toggle =====
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-        }
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('mobileMenu').classList.remove('active');
-            });
-        });
-
-        // ===== Smooth Scroll to Section =====
-        function scrollToSection(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
+        // ===== DATA STORAGE =====
+        let adminLoggedIn = false;
+        let products = JSON.parse(localStorage.getItem('ratflixProducts')) || [
+            {
+                id: 1,
+                name: "Free Fire Script Pro",
+                type: "shot",
+                description: "Advanced Free Fire script with exclusive features and real-time detection evasion",
+                image: "🔫",
+                downloads: 1250
+            },
+            {
+                id: 2,
+                name: "Hologram Protection",
+                type: "hologram",
+                description: "Advanced hologram-based protection with military-grade encryption",
+                image: "🛡️",
+                downloads: 890
+            },
+            {
+                id: 3,
+                name: "Admin Panel V3",
+                type: "panel",
+                description: "Professional control panel with complete management features",
+                image: "⚙️",
+                downloads: 650
+            },
+            {
+                id: 4,
+                name: "Sensi Pack",
+                type: "protection",
+                description: "Sensitive data protection pack with advanced encryption and security",
+                image: "🔐",
+                downloads: 2100
+            },
+            {
+                id: 5,
+                name: "Certificate Gbox Esing",
+                type: "protection",
+                description: "Premium certificate-based protection with Gbox technology",
+                image: "📜",
+                downloads: 1450
+            },
+            {
+                id: 6,
+                name: "Nettina Guard",
+                type: "shot",
+                description: "Advanced detection evasion system with continuous learning",
+                image: "🎯",
+                downloads: 1875
             }
-        }
+        ];
 
-        // ===== Counter Animation =====
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target'));
-                const duration = 2500;
-                const start = 0;
-                const increment = target / (duration / 16);
-                let current = start;
-
-                const updateCounter = () => {
-                    current += increment;
-                    if (current < target) {
-                        counter.textContent = Math.floor(current).toLocaleString();
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target.toLocaleString();
-                    }
-                };
-
-                updateCounter();
-            });
-        }
-
-        // Trigger counter animation when stats section is visible
-        const statsSection = document.getElementById('stats');
-        const observerOptions = {
-            threshold: 0.3
+        // ===== AI CHATBOT RESPONSES =====
+        const aiResponses = {
+            "hello": "Hello! 👋 Welcome to RATFLIX. How can I assist you today?",
+            "hi": "Hi there! 😊 What can I help you with?",
+            "products": "We offer scripts, protection packages, panels, and more. Check our product catalog!",
+            "how to buy": "1️⃣ Choose a product\n2️⃣ Click 'Buy Now'\n3️⃣ Contact developer via Telegram or WhatsApp\n4️⃣ Get instant delivery after payment ⚡",
+            "safe": "Yes! All our products are 100% secure and regularly updated 🔒",
+            "updates": "We provide daily updates to ensure maximum protection ✨",
+            "support": "24/7 support available via Telegram or WhatsApp 💬",
+            "contact": "📱 Telegram: @relaxFlyvic\n📞 WhatsApp: +34 632 07 64 49",
+            "security": "All transactions and products are secured with military-grade encryption",
+            "download": "Click 'Buy Now' on any product to see how to purchase and download",
+            "guarantee": "All products come with instant delivery and 24/7 support"
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounters();
-                    observer.unobserve(entry.target);
-                }
+        // ===== FUNCTIONS =====
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map(product => `
+                <div class="product-card fade-up">
+                    <span class="product-tag">${product.type.toUpperCase()}</span>
+                    <div class="product-image">
+                        ${product.image}
+                    </div>
+                    <div class="product-content">
+                        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 10px;">${product.name}</h3>
+                        <p style="color: #cbd5e1; margin-bottom: 15px; font-size: 0.95rem; flex-grow: 1;">${product.description}</p>
+                        <p class="product-downloads">⬇️ ${product.downloads}+ Downloads</p>
+                    </div>
+                    <button class="btn-buy" onclick="openPurchaseModal(${product.id})">Buy Now</button>
+                </div>
+            `).join('');
+        }
+
+        function openPurchaseModal(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductDesc').textContent = product.description;
+            document.getElementById('modalProductDownloads').textContent = product.downloads + '+';
+            
+            document.getElementById('purchaseModal').classList.add('active');
+        }
+
+        function closePurchaseModal() {
+            document.getElementById('purchaseModal').classList.remove('active');
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ Copied to clipboard!');
             });
-        }, observerOptions);
+        }
 
-        observer.observe(statsSection);
+        function scrollTo(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
 
-        // ===== Generate Floating Particles =====
-        function generateParticles() {
-            const container = document.getElementById('particleContainer');
-            const particleCount = 30;
+        function toggleChat() {
+            const chatBox = document.getElementById('chatBox');
+            const chatToggle = document.getElementById('chatToggle');
+            chatBox.classList.toggle('hidden-element');
+            chatToggle.classList.toggle('hidden-element');
+        }
 
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                container.appendChild(particle);
+        function toggleAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            panel.classList.toggle('active');
+        }
+
+        function handleChatInput(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
             }
         }
 
-        generateParticles();
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const messages = document.getElementById('chatMessages');
+            const userMessage = input.value.trim().toLowerCase();
 
-        // ===== Button Click Animations =====
-        document.querySelectorAll('.btn-neon, .btn-outline').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const ripple = document.createElement('div');
-                const rect = this.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
+            if (!userMessage) return;
 
-                ripple.style.width = ripple.style.height = size + 'px';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-            });
-        });
+            // User message
+            messages.innerHTML += `
+                <div class="message user">
+                    <div class="message-bubble">${input.value}</div>
+                </div>
+            `;
 
-        // ===== Navbar Background on Scroll =====
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.borderBottomColor = 'rgba(0, 255, 136, 0.2)';
+            // AI Response
+            let response = "I'm not sure about that. Feel free to ask about products, how to buy, support, or contact info! 😊";
+            
+            for (const [key, value] of Object.entries(aiResponses)) {
+                if (userMessage.includes(key)) {
+                    response = value;
+                    break;
+                }
+            }
+
+            setTimeout(() => {
+                messages.innerHTML += `
+                    <div class="message ai">
+                        <div class="message-bubble">${response}</div>
+                    </div>
+                `;
+                messages.scrollTop = messages.scrollHeight;
+            }, 300);
+
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            const error = document.getElementById('loginError');
+
+            if (password === 'adminratflix') {
+                adminLoggedIn = true;
+                document.getElementById('adminLogin').classList.add('hidden-element');
+                document.getElementById('adminDashboard').classList.remove('hidden-element');
+                error.style.display = 'none';
+                loadProductsList();
             } else {
-                navbar.style.borderBottomColor = 'rgba(0, 255, 136, 0.1)';
+                error.textContent = '❌ Incorrect password';
+                error.style.display = 'block';
+            }
+        }
+
+        function adminLogout() {
+            adminLoggedIn = false;
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('adminLogin').classList.remove('hidden-element');
+            document.getElementById('adminDashboard').classList.add('hidden-element');
+        }
+
+        function addProduct() {
+            const name = document.getElementById('productName').value;
+            const type = document.getElementById('productType').value;
+            const desc = document.getElementById('productDesc').value;
+            const image = document.getElementById('productImage').value;
+
+            if (!name || !type) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const newProduct = {
+                id: Date.now(),
+                name: name,
+                type: type,
+                description: desc,
+                image: image || '📦',
+                downloads: 0
+            };
+
+            products.push(newProduct);
+            localStorage.setItem('ratflixProducts', JSON.stringify(products));
+            renderProducts();
+            loadProductsList();
+
+            // Clear inputs
+            document.getElementById('productName').value = '';
+            document.getElementById('productType').value = '';
+            document.getElementById('productDesc').value = '';
+            document.getElementById('productImage').value = '';
+
+            alert('✅ Product added successfully');
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('ratflixProducts', JSON.stringify(products));
+                renderProducts();
+                loadProductsList();
+                alert('✅ Product deleted');
+            }
+        }
+
+        function loadProductsList() {
+            const list = document.getElementById('productsList');
+            list.innerHTML = products.map(p => `
+                <div class="product-item">
+                    <div class="product-item-header">
+                        <div>
+                            <strong>${p.name}</strong> (${p.type})
+                        </div>
+                        <button onclick="deleteProduct(${p.id})">Delete</button>
+                    </div>
+                    <small style="color: #cbd5e1;">Downloads: ${p.downloads}</small>
+                </div>
+            `).join('');
+        }
+
+        function saveSiteSettings() {
+            const title = document.getElementById('siteTitle').value;
+            const desc = document.getElementById('siteDescription').value;
+
+            localStorage.setItem('siteTitle', title);
+            localStorage.setItem('siteDescription', desc);
+
+            alert('✅ Settings saved successfully');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('purchaseModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePurchaseModal();
             }
         });
 
-        // ===== Prevent Default Button Actions for Demo =====
-        document.querySelectorAll('.btn-neon:not([onclick])').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        // ===== INITIALIZATION =====
+        window.addEventListener('load', () => {
+            renderProducts();
+
+            // Load saved settings
+            const savedTitle = localStorage.getItem('siteTitle');
+            if (savedTitle) {
+                document.getElementById('siteTitle').value = savedTitle;
+            }
+        });
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                alert('Thank you for your interest! This is a demo. In production, this would process your payment.');
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
     </script>
