@@ -275,13 +275,12 @@
 
         .product-image {
             width: 100%;
-            height: 250px;
+            height: 280px;
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
             margin-bottom: 15px;
             overflow: hidden;
             position: relative;
@@ -330,6 +329,10 @@
             box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
             z-index: 500;
             animation: slideInLeft 0.5s ease-out;
+        }
+
+        .chat-box.hidden-element {
+            display: none !important;
         }
 
         .chat-header {
@@ -441,8 +444,8 @@
             transform: scale(1.1);
         }
 
-        .chat-toggle.hidden {
-            display: none;
+        .chat-toggle.hidden-element {
+            display: none !important;
         }
 
         .admin-panel {
@@ -589,6 +592,8 @@
             border: 1px solid rgba(99, 102, 241, 0.3);
             animation: fadeInUp 0.3s ease-out;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal-header {
@@ -656,17 +661,6 @@
         .contact-value {
             color: #cbd5e1;
             word-break: break-all;
-        }
-
-        .contact-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .contact-link:hover {
-            color: var(--secondary);
         }
 
         .copy-btn {
@@ -740,6 +734,7 @@
 
             .modal-content {
                 padding: 20px;
+                width: 95%;
             }
         }
 
@@ -927,7 +922,7 @@
     </div>
 
     <!-- ===== CHAT BOX ===== -->
-    <div class="chat-box glass" id="chatBox">
+    <div class="chat-box glass hidden-element" id="chatBox">
         <div class="chat-header">
             <span>🤖 RATFLIX Assistant</span>
             <button onclick="toggleChat()" style="background: none; border: none; color: white; cursor: pointer;">✕</button>
@@ -969,7 +964,7 @@
                     <input type="text" id="productName" placeholder="Product Name" class="admin-input">
                     <input type="text" id="productType" placeholder="Type (shot/hologram/panel/protection)" class="admin-input">
                     <textarea id="productDesc" placeholder="Product Description" class="admin-input" rows="3" style="resize: vertical;"></textarea>
-                    <input type="text" id="productImage" placeholder="Image URL or Emoji" class="admin-input">
+                    <input type="text" id="productImage" placeholder="Image URL" class="admin-input">
                     <button class="admin-btn" onclick="addProduct()">Add Product</button>
                 </div>
 
@@ -1002,48 +997,48 @@
                 id: 1,
                 name: "Free Fire Script Pro",
                 type: "shot",
-                description: "Advanced Free Fire script with exclusive features and real-time detection evasion",
-                image: "🔫",
+                description: "Advanced Free Fire script with exclusive features and real-time detection evasion. Trusted by thousands of players worldwide.",
+                image: "https://images.unsplash.com/photo-1538481143235-b716cc61bfff?w=500&h=500&fit=crop",
                 downloads: 1250
             },
             {
                 id: 2,
                 name: "Hologram Protection",
                 type: "hologram",
-                description: "Advanced hologram-based protection with military-grade encryption",
-                image: "🛡️",
+                description: "Advanced hologram-based protection with military-grade encryption. Next-generation security system.",
+                image: "https://images.unsplash.com/photo-1559163853-4b378003988e?w=500&h=500&fit=crop",
                 downloads: 890
             },
             {
                 id: 3,
                 name: "Admin Panel V3",
                 type: "panel",
-                description: "Professional control panel with complete management features",
-                image: "⚙️",
+                description: "Professional control panel with complete management features. All-in-one solution for administrators.",
+                image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=500&fit=crop",
                 downloads: 650
             },
             {
                 id: 4,
                 name: "Sensi Pack",
                 type: "protection",
-                description: "Sensitive data protection pack with advanced encryption and security",
-                image: "🔐",
+                description: "Sensitive data protection pack with advanced encryption and security features. Comprehensive data safety.",
+                image: "https://images.unsplash.com/photo-1555949519-3c20e3dcb943?w=500&h=500&fit=crop",
                 downloads: 2100
             },
             {
                 id: 5,
                 name: "Certificate Gbox Esing",
                 type: "protection",
-                description: "Premium certificate-based protection with Gbox technology",
-                image: "📜",
+                description: "Premium certificate-based protection with Gbox technology integration. Enterprise-grade security solution.",
+                image: "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=500&h=500&fit=crop",
                 downloads: 1450
             },
             {
                 id: 6,
                 name: "Nettina Guard",
                 type: "shot",
-                description: "Advanced detection evasion system with continuous learning",
-                image: "🎯",
+                description: "Advanced detection evasion system with continuous learning algorithms. Stay undetected at all times.",
+                image: "https://images.unsplash.com/photo-1563509137-53d6f8b21a15?w=500&h=500&fit=crop",
                 downloads: 1875
             }
         ];
@@ -1060,7 +1055,8 @@
             "contact": "📱 Telegram: @relaxFlyvic\n📞 WhatsApp: +34 632 07 64 49",
             "security": "All transactions and products are secured with military-grade encryption",
             "download": "Click 'Buy Now' on any product to see how to purchase and download",
-            "guarantee": "All products come with instant delivery and 24/7 support"
+            "guarantee": "All products come with instant delivery and 24/7 support",
+            "price": "Contact the developer for pricing information"
         };
 
         // ===== FUNCTIONS =====
@@ -1070,7 +1066,7 @@
                 <div class="product-card fade-up">
                     <span class="product-tag">${product.type.toUpperCase()}</span>
                     <div class="product-image">
-                        ${product.image}
+                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/500x280?text=${encodeURIComponent(product.name)}'">
                     </div>
                     <div class="product-content">
                         <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 10px;">${product.name}</h3>
@@ -1201,7 +1197,7 @@
                 name: name,
                 type: type,
                 description: desc,
-                image: image || '📦',
+                image: image || 'https://via.placeholder.com/500x280?text=Product',
                 downloads: 0
             };
 
