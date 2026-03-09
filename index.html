@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RATFLIX SHOP - Premium Scripts & Protection</title>
+    <title>RATFLIX - Elite Underground Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Deca:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -18,12 +18,11 @@
         }
 
         :root {
-            --primary: #6366f1;
-            --secondary: #06b6d4;
-            --accent: #f43f5e;
-            --dark: #0f172a;
-            --darker: #020617;
-            --light: #f1f5f9;
+            --primary-red: #ff0000;
+            --dark-black: #0a0e27;
+            --darker-black: #050609;
+            --accent-gray: #1a1f3a;
+            --border-red: #660000;
         }
 
         html {
@@ -31,194 +30,304 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--darker) 0%, #1e293b 100%);
-            color: #e2e8f0;
+            font-family: 'Space Mono', monospace;
+            background: #000000;
+            color: #e0e0e0;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 12px;
         }
 
         ::-webkit-scrollbar-track {
-            background: var(--dark);
+            background: var(--darker-black);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
+            background: var(--primary-red);
+            border-radius: 6px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--secondary);
+            background: #ff3333;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        /* ===== CINEMATIC ANIMATIONS ===== */
+        @keyframes cinemaIn {
+            0% {
+                opacity: 0;
+                transform: scaleY(0) skewY(-5deg);
+                filter: blur(20px);
+            }
+            50% {
+                opacity: 0.8;
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: scaleY(1) skewY(0deg);
+                filter: blur(0px);
+            }
         }
 
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
-            50% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.8); }
+        @keyframes ominousGlow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.3), inset 0 0 30px rgba(255, 0, 0, 0.1);
+                filter: brightness(0.9);
+            }
+            50% { 
+                box-shadow: 0 0 60px rgba(255, 0, 0, 0.8), inset 0 0 40px rgba(255, 0, 0, 0.2);
+                filter: brightness(1.1);
+            }
         }
 
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
+        @keyframes cinematicFade {
+            from {
+                opacity: 0;
+                transform: translateY(100px) perspective(1000px) rotateX(20deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) perspective(1000px) rotateX(0deg);
+            }
         }
 
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
+        @keyframes flickerEffect {
+            0%, 100% { opacity: 1; }
+            5% { opacity: 0.8; }
+            10% { opacity: 1; }
+            15% { opacity: 0.7; }
+            20% { opacity: 1; }
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
+        @keyframes pulseIntense {
+            0%, 100% { 
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            50% { 
+                transform: scale(1.02);
+                filter: brightness(1.2);
+            }
+        }
+
+        @keyframes slideUpContent {
+            from { opacity: 0; transform: translateY(50px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
+        @keyframes slideDownContent {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .float-animation { animation: float 3s ease-in-out infinite; }
-        .glow-animation { animation: glow 3s ease-in-out infinite; }
-        .slide-right { animation: slideInRight 0.6s ease-out; }
-        .slide-left { animation: slideInLeft 0.6s ease-out; }
-        .fade-up { animation: fadeInUp 0.6s ease-out; }
-
-        .glass {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 16px;
+        @keyframes fadeInContent {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .glass-secondary {
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(6, 182, 212, 0.15);
-            border-radius: 12px;
+        @keyframes scanlineEffect {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(2px); }
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        @keyframes redFlicker {
+            0%, 100% { color: var(--primary-red); text-shadow: 0 0 20px rgba(255, 0, 0, 0.8); }
+            50% { color: #ff6666; text-shadow: 0 0 40px rgba(255, 0, 0, 1); }
         }
 
-        .gradient-accent {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .cinema-animation {
+            animation: cinemaIn 3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        .btn-primary {
-            padding: 12px 28px;
-            background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-            position: relative;
-            overflow: hidden;
-            font-family: 'Poppins', sans-serif;
+        .red-glow {
+            animation: ominousGlow 2.5s ease-in-out infinite;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.5);
+        .flicker {
+            animation: flickerEffect 2s infinite;
         }
 
-        .btn-secondary {
-            padding: 12px 28px;
-            background: linear-gradient(135deg, var(--secondary) 0%, #0891b2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
-            font-family: 'Poppins', sans-serif;
+        .pulse-intense {
+            animation: pulseIntense 1.5s ease-in-out infinite;
         }
 
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(6, 182, 212, 0.5);
+        .slide-up {
+            animation: slideUpContent 0.8s ease-out forwards;
         }
 
-        .btn-accent {
-            padding: 12px 28px;
-            background: linear-gradient(135deg, var(--accent) 0%, #e11d48 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(244, 63, 94, 0.3);
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .btn-accent:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(244, 63, 94, 0.5);
-        }
-
-        .btn-buy {
+        /* ===== ENTRANCE SECTION ===== */
+        .entrance-container {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, var(--secondary) 0%, #0891b2 100%);
+            height: 100vh;
+            background: linear-gradient(180deg, #000000 0%, #1a0000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .entrance-bg-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at center, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
+            animation: fadeInContent 4s ease-in-out;
+            z-index: 1;
+        }
+
+        .entrance-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(255, 0, 0, 0.05) 25%, rgba(255, 0, 0, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 0, 0, 0.05) 75%, rgba(255, 0, 0, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(255, 0, 0, 0.05) 25%, rgba(255, 0, 0, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 0, 0, 0.05) 75%, rgba(255, 0, 0, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            animation: scanlineEffect 0.2s infinite linear;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .entrance-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
             color: white;
-            border: none;
-            border-radius: 8px;
+            animation: cinematicFade 2s ease-out 0.5s backwards;
+        }
+
+        .entrance-title {
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: clamp(2.5rem, 12vw, 5rem);
             font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: var(--primary-red);
+            text-shadow: 
+                0 0 10px rgba(255, 0, 0, 0.8),
+                0 0 20px rgba(255, 0, 0, 0.6),
+                0 0 40px rgba(255, 0, 0, 0.4),
+                0 0 80px rgba(255, 0, 0, 0.2);
+            animation: redFlicker 3s ease-in-out infinite;
+            filter: brightness(1.2);
+        }
+
+        .entrance-divider {
+            width: 300px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+            margin: 30px auto;
+            animation: slideUpContent 2s ease-out 0.8s backwards;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .entrance-subtitle {
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            letter-spacing: 4px;
+            margin-bottom: 50px;
+            color: #ff6666;
+            animation: slideUpContent 2s ease-out 1s backwards;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+        }
+
+        .entrance-button {
+            padding: 18px 60px;
+            background: var(--primary-red);
+            color: white;
+            border: 2px solid var(--primary-red);
+            border-radius: 0;
+            font-family: 'Bebas Deca', sans-serif;
             font-size: 1rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: slideUpContent 2s ease-out 1.2s backwards;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            font-weight: 700;
         }
 
-        .btn-buy:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
+        .entrance-button:hover {
+            background: transparent;
+            color: var(--primary-red);
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.9), inset 0 0 20px rgba(255, 0, 0, 0.2);
+            transform: scale(1.1) skewX(-2deg);
+            letter-spacing: 4px;
         }
 
+        .entrance-button:active {
+            transform: scale(0.95) skewX(0deg);
+        }
+
+        .entrance-warning {
+            position: absolute;
+            bottom: 40px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: #888;
+            animation: slideUpContent 2s ease-out 1.5s backwards;
+        }
+
+        .entrance-container.hidden {
+            display: none !important;
+        }
+
+        /* ===== NAVBAR ===== */
         .navbar {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
-            padding: 1rem 2rem;
+            background: linear-gradient(180deg, var(--darker-black) 0%, rgba(5, 6, 9, 0.8) 100%);
+            border-bottom: 2px solid var(--primary-red);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .nav-logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            letter-spacing: -1px;
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--primary-red);
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            cursor: pointer;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 3rem;
             list-style: none;
         }
 
         .nav-links a {
-            color: #e2e8f0;
+            color: #e0e0e0;
             text-decoration: none;
-            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             position: relative;
             transition: color 0.3s;
         }
@@ -227,33 +336,89 @@
             content: '';
             position: absolute;
             bottom: -5px;
-            right: 0;
+            left: 0;
             width: 0;
             height: 2px;
-            background: var(--primary);
+            background: var(--primary-red);
             transition: width 0.3s;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
         }
 
         .nav-links a:hover {
-            color: var(--primary);
+            color: var(--primary-red);
         }
 
         .nav-links a:hover::after {
             width: 100%;
-            right: auto;
-            left: 0;
+        }
+
+        .admin-button {
+            padding: 10px 30px;
+            border: 2px solid var(--primary-red);
+            background: transparent;
+            color: var(--primary-red);
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            border-radius: 0;
+        }
+
+        .admin-button:hover {
+            background: var(--primary-red);
+            color: white;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* ===== STORE SECTION ===== */
+        .store-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 2rem;
+        }
+
+        .store-title {
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--primary-red);
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+        }
+
+        .store-subtitle {
+            text-align: center;
+            margin-bottom: 60px;
+            color: #888;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
         }
 
         .product-card {
-            background: var(--dark);
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--accent-gray) 0%, var(--darker-black) 100%);
+            border: 2px solid var(--border-red);
+            padding: 40px 30px;
             position: relative;
             overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            min-height: 380px;
+            cursor: pointer;
         }
 
         .product-card::before {
@@ -261,89 +426,426 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
+            width: 100%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            animation: shimmer 3s infinite;
+            background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+            animation: slideUpContent 1s ease-out;
+        }
+
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.02);
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
         .product-card:hover {
-            border-color: rgba(99, 102, 241, 0.5);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.4), inset 0 0 40px rgba(255, 0, 0, 0.05);
+            transform: translateY(-10px);
+        }
+
+        .product-card:hover::after {
+            opacity: 1;
+        }
+
+        .product-type {
+            color: var(--primary-red);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .product-name {
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .product-description {
+            color: #999;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .product-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-red);
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .buy-button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+            font-weight: 700;
+        }
+
+        .buy-button:hover {
+            background: transparent;
+            color: var(--primary-red);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+            transform: scale(1.02);
+        }
+
+        .buy-button:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== STATS SECTION ===== */
+        .stats-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 2rem;
+            border-top: 2px solid var(--border-red);
+            border-bottom: 2px solid var(--border-red);
+        }
+
+        .stats-title {
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-red);
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+            text-transform: uppercase;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--accent-gray) 0%, var(--darker-black) 100%);
+            border: 2px solid var(--border-red);
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
             transform: translateY(-5px);
         }
 
-        .product-image {
-            width: 100%;
-            height: 280px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
-            border-radius: 8px;
+        .stat-number {
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ===== SUPPORT SECTION ===== */
+        .support-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 2rem;
+        }
+
+        .support-title {
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-red);
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+            text-transform: uppercase;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .support-card {
+            background: linear-gradient(135deg, var(--accent-gray) 0%, var(--darker-black) 100%);
+            border: 2px solid var(--border-red);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .support-name {
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .support-value {
+            color: #ddd;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            word-break: break-all;
+        }
+
+        .support-button {
+            padding: 10px 25px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .support-button:hover {
+            background: white;
+            color: var(--primary-red);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
-            overflow: hidden;
-            position: relative;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+            padding: 20px;
         }
 
-        .product-image img {
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--darker-black);
+            border: 2px solid var(--primary-red);
+            padding: 50px;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.3);
+            animation: cinemaIn 0.5s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
-        .product-tag {
-            display: inline-block;
-            padding: 6px 14px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            border-radius: 20px;
-            font-size: 0.75rem;
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: none;
+            border: none;
+            color: var(--primary-red);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
             font-weight: 700;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+        }
+
+        .modal-title {
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--primary-red);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .modal-section {
+            margin-bottom: 30px;
+        }
+
+        .modal-section h3 {
+            color: var(--primary-red);
+            margin-bottom: 15px;
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .modal-text {
+            color: #ccc;
+            line-height: 1.8;
             margin-bottom: 10px;
         }
 
-        .product-downloads {
-            font-size: 0.85rem;
-            color: #64748b;
+        .contact-box {
+            background: var(--accent-gray);
+            border: 1px solid var(--border-red);
+            padding: 20px;
             margin-bottom: 15px;
         }
 
-        .product-content {
-            flex: 1;
+        .contact-item {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-red);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
+        .contact-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .contact-label {
+            color: var(--primary-red);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .contact-value {
+            color: #ddd;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            border-radius: 0;
+            white-space: nowrap;
+            font-weight: 700;
+        }
+
+        .copy-btn:hover {
+            background: white;
+            color: var(--primary-red);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .link-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-red);
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            margin-top: 10px;
+            transition: all 0.3s;
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 2px solid var(--primary-red);
+            font-weight: 700;
+        }
+
+        .link-button:hover {
+            background: transparent;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+        }
+
+        /* ===== CHAT BOX ===== */
         .chat-box {
             position: fixed;
-            bottom: 30px;
+            bottom: 100px;
             left: 30px;
             width: 380px;
             height: 500px;
-            background: var(--dark);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 16px;
+            background: var(--darker-black);
+            border: 2px solid var(--primary-red);
             display: flex;
             flex-direction: column;
-            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
             z-index: 500;
-            animation: slideInLeft 0.5s ease-out;
-        }
-
-        .chat-box.hidden-element {
-            display: none !important;
+            animation: slideUpContent 0.5s ease-out;
         }
 
         .chat-header {
             padding: 15px 20px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 16px 16px 0 0;
+            background: var(--primary-red);
+            color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: white;
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             font-weight: 700;
+        }
+
+        .chat-header button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+
+        .chat-header button:hover {
+            transform: scale(1.2);
         }
 
         .chat-messages {
@@ -352,13 +854,13 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .message {
             display: flex;
             gap: 10px;
-            animation: fadeInUp 0.3s ease-out;
+            animation: slideUpContent 0.3s ease-out;
         }
 
         .message.user {
@@ -366,58 +868,64 @@
         }
 
         .message-bubble {
-            padding: 12px 16px;
-            border-radius: 12px;
+            padding: 10px 15px;
+            border-radius: 0;
             max-width: 70%;
             word-wrap: break-word;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
 
         .message.ai .message-bubble {
-            background: rgba(99, 102, 241, 0.2);
-            border-left: 3px solid var(--primary);
-            color: #cbd5e1;
+            background: var(--accent-gray);
+            border-left: 2px solid var(--primary-red);
+            color: #ccc;
         }
 
         .message.user .message-bubble {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: var(--primary-red);
             color: white;
         }
 
         .chat-input {
             padding: 15px;
-            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            border-top: 1px solid var(--border-red);
             display: flex;
             gap: 10px;
         }
 
         .chat-input input {
             flex: 1;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            background: var(--accent-gray);
+            border: 1px solid var(--border-red);
             color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
+            padding: 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
         }
 
         .chat-input input::placeholder {
-            color: #64748b;
+            color: #666;
         }
 
         .chat-input button {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: var(--primary-red);
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
+            padding: 10px 20px;
             cursor: pointer;
-            font-weight: 600;
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             transition: all 0.3s;
+            font-weight: 700;
         }
 
         .chat-input button:hover {
-            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            background: white;
+            color: var(--primary-red);
         }
 
         .chat-toggle {
@@ -426,40 +934,50 @@
             left: 30px;
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 50%;
+            background: var(--primary-red);
+            border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
             font-size: 1.5rem;
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
             z-index: 400;
             transition: all 0.3s;
-            border: none;
+            border-radius: 0;
+            font-weight: 700;
         }
 
         .chat-toggle:hover {
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
             transform: scale(1.1);
         }
 
-        .chat-toggle.hidden-element {
+        .chat-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .chat-toggle.hidden {
             display: none !important;
         }
 
+        .chat-box.hidden {
+            display: none !important;
+        }
+
+        /* ===== ADMIN PANEL ===== */
         .admin-panel {
             position: fixed;
             top: 0;
             right: -500px;
             width: 500px;
             height: 100vh;
-            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
-            border-left: 2px solid rgba(99, 102, 241, 0.3);
+            background: var(--darker-black);
+            border-left: 2px solid var(--primary-red);
             z-index: 1000;
             display: flex;
             flex-direction: column;
-            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+            box-shadow: -10px 0 40px rgba(255, 0, 0, 0.3);
             transition: right 0.3s ease;
             overflow-y: auto;
         }
@@ -470,12 +988,29 @@
 
         .admin-header {
             padding: 20px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: var(--primary-red);
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             font-weight: 700;
+        }
+
+        .admin-header button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .admin-header button:hover {
+            transform: rotate(90deg);
         }
 
         .admin-content {
@@ -489,238 +1024,140 @@
         }
 
         .admin-section h3 {
-            color: var(--primary);
+            color: var(--primary-red);
             margin-bottom: 10px;
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             font-weight: 700;
-            font-size: 1.1rem;
         }
 
         .admin-input {
             width: 100%;
             padding: 10px;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            background: var(--accent-gray);
+            border: 1px solid var(--border-red);
             color: white;
-            border-radius: 6px;
+            border-radius: 0;
             margin-bottom: 10px;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
         }
 
         .admin-input::placeholder {
-            color: #64748b;
+            color: #666;
         }
 
         .admin-btn {
             width: 100%;
             padding: 10px;
-            background: var(--primary);
+            background: var(--primary-red);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 0;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
             margin-bottom: 10px;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Bebas Deca', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .admin-btn:hover {
-            background: #4f46e5;
+            background: white;
+            color: var(--primary-red);
             transform: translateY(-2px);
         }
 
         .admin-btn.danger {
-            background: var(--accent);
+            background: #660000;
         }
 
         .admin-btn.danger:hover {
-            background: #e11d48;
+            background: var(--primary-red);
+            color: white;
         }
 
         .product-item {
-            background: rgba(99, 102, 241, 0.1);
+            background: var(--accent-gray);
             padding: 10px;
-            border-radius: 6px;
+            border-left: 2px solid var(--primary-red);
             margin-bottom: 10px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
+            font-size: 0.9rem;
         }
 
-        .product-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
+        .product-item strong {
+            color: var(--primary-red);
         }
 
-        .product-item-header button {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-        }
-
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
-            padding: 40px;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 600px;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            animation: fadeInUp 0.3s ease-out;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .modal-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .modal-close:hover {
-            transform: rotate(90deg);
-        }
-
-        .modal-section {
-            margin-bottom: 25px;
-        }
-
-        .modal-section h3 {
-            color: var(--secondary);
-            margin-bottom: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .contact-info {
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .contact-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .contact-label {
-            font-weight: 600;
-            color: var(--secondary);
-            min-width: 100px;
-        }
-
-        .contact-value {
-            color: #cbd5e1;
-            word-break: break-all;
-        }
-
-        .copy-btn {
-            background: rgba(6, 182, 212, 0.2);
-            border: 1px solid var(--secondary);
-            color: var(--secondary);
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            margin-left: auto;
-        }
-
-        .copy-btn:hover {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .hero-bg {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .hero-content {
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--darker-black);
+            border-top: 2px solid var(--primary-red);
+            padding: 40px 2rem;
             text-align: center;
-            z-index: 10;
-            animation: fadeInUp 0.8s ease-out;
+            color: #888;
+            font-size: 0.9rem;
         }
 
-        .hero-title {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
-            margin-bottom: 20px;
-            letter-spacing: -2px;
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .hero-subtitle {
-            font-size: clamp(1rem, 3vw, 1.5rem);
-            color: #cbd5e1;
-            margin-bottom: 30px;
+        .footer-divider {
+            height: 1px;
+            background: var(--border-red);
+            margin: 20px 0;
         }
 
+        .footer-text {
+            letter-spacing: 1px;
+        }
+
+        .hidden-element {
+            display: none !important;
+        }
+
+        /* ===== MOBILE RESPONSIVE ===== */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
 
-            .chat-box {
-                width: 100%;
-                height: 400px;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                border-radius: 16px 16px 0 0;
+            .entrance-title {
+                font-size: 2.5rem;
+            }
+
+            .store-title {
+                font-size: 1.8rem;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .product-card {
+                min-height: auto;
+                padding: 25px 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .support-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .modal-content {
+                padding: 30px;
             }
 
             .admin-panel {
@@ -728,397 +1165,371 @@
                 right: -100%;
             }
 
-            .hero-title {
-                font-size: 2rem;
+            .chat-box {
+                width: calc(100% - 60px);
+                height: 400px;
+                max-width: 380px;
             }
 
-            .modal-content {
-                padding: 20px;
-                width: 95%;
+            .contact-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .copy-btn {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .link-button {
+                display: block;
+                margin-right: 0;
+                margin-bottom: 10px;
             }
         }
 
-        .hidden-element {
-            display: none !important;
-        }
+        @media (max-width: 480px) {
+            .nav-logo {
+                font-size: 1.5rem;
+            }
 
-        .success-message {
-            background: rgba(34, 197, 94, 0.2);
-            border: 1px solid rgba(34, 197, 94, 0.5);
-            color: #86efac;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-weight: 600;
+            .entrance-button {
+                padding: 12px 30px;
+            }
+
+            .product-name {
+                font-size: 1.1rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- ===== ENTRANCE ANIMATION ===== -->
+    <div class="entrance-container" id="entranceContainer">
+        <div class="entrance-bg-layer"></div>
+        <div class="entrance-grid"></div>
+        <div class="entrance-content">
+            <div class="entrance-title">RATFLIX</div>
+            <div class="entrance-divider"></div>
+            <div class="entrance-subtitle">ELITE UNDERGROUND PLATFORM</div>
+            <button class="entrance-button" onclick="skipEntrance()">ENTER PLATFORM</button>
+            <div class="entrance-warning">WARNING - RESTRICTED ACCESS ONLY</div>
+        </div>
+    </div>
+
     <!-- ===== NAVBAR ===== -->
-    <nav class="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="nav-logo gradient-text">RATFLIX</div>
+    <nav class="navbar" id="navbar" style="display: none;">
+        <div class="nav-container">
+            <div class="nav-logo" onclick="location.href='#'">RATFLIX</div>
             <ul class="nav-links">
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#store">STORE</a></li>
+                <li><a href="#stats">STATS</a></li>
+                <li><a href="#support">SUPPORT</a></li>
             </ul>
-            <button class="btn-primary" onclick="toggleAdminPanel()">⚙️ Admin</button>
+            <button class="admin-button" onclick="toggleAdminPanel()">ADMIN</button>
         </div>
     </nav>
 
-    <!-- ===== HERO SECTION ===== -->
-    <section id="hero" class="hero-bg">
-        <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-20 left-10 w-96 h-96 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-            <div class="absolute top-40 right-10 w-96 h-96 bg-cyan-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-            <div class="absolute bottom-20 left-1/2 w-96 h-96 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-        </div>
-
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="gradient-text">RATFLIX</span>
-                <span class="gradient-accent">SHOP</span>
-            </h1>
-            <p class="hero-subtitle">Premium Scripts, Protection & Panel Solutions 🔒</p>
-            <div class="flex gap-4 justify-center flex-wrap">
-                <button class="btn-primary" onclick="scrollTo('products')">Shop Now</button>
-                <button class="btn-secondary" onclick="scrollTo('products')">Explore Products</button>
-            </div>
-            <p style="margin-top: 30px; color: #cbd5e1;">✨ Daily Updates | 🛡️ 100% Security | ⚡ 24/7 Support</p>
+    <!-- ===== STORE SECTION ===== -->
+    <section class="store-section" id="storeSection" style="display: none;">
+        <div id="store" class="store-title">PRODUCT STORE</div>
+        <div class="store-subtitle">ELITE SOLUTIONS FOR ADVANCED USERS</div>
+        
+        <div class="category-grid" id="productsGrid">
+            <!-- Products loaded by JavaScript -->
         </div>
     </section>
 
-    <!-- ===== PRODUCTS SECTION ===== -->
-    <section id="products" class="py-20 px-4">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Available Products</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="productsGrid">
-                <!-- Products will be loaded here by JS -->
+    <!-- ===== STATS SECTION ===== -->
+    <section class="stats-section" id="statsSection" style="display: none;">
+        <div id="stats" class="stats-title">PLATFORM STATISTICS</div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">50K+</div>
+                <div class="stat-label">ACTIVE USERS</div>
             </div>
-        </div>
-    </section>
-
-    <!-- ===== ABOUT SECTION ===== -->
-    <section id="about" class="py-20 px-4 bg-gradient-to-b from-transparent to-indigo-900/10">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Why Choose RATFLIX?</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass p-8 rounded-lg text-center fade-up">
-                    <div style="font-size: 3rem; margin-bottom: 15px;">🚀</div>
-                    <h3 class="text-xl font-bold mb-4 gradient-text">Ultra Fast</h3>
-                    <p class="text-gray-400">Lightning-fast scripts with real-time updates</p>
-                </div>
-
-                <div class="glass p-8 rounded-lg text-center fade-up" style="animation-delay: 0.1s;">
-                    <div style="font-size: 3rem; margin-bottom: 15px;">🛡️</div>
-                    <h3 class="text-xl font-bold mb-4 gradient-text">100% Safe</h3>
-                    <p class="text-gray-400">Military-grade protection against detection systems</p>
-                </div>
-
-                <div class="glass p-8 rounded-lg text-center fade-up" style="animation-delay: 0.2s;">
-                    <div style="font-size: 3rem; margin-bottom: 15px;">💬</div>
-                    <h3 class="text-xl font-bold mb-4 gradient-text">Direct Support</h3>
-                    <p class="text-gray-400">Direct contact with developer for assistance</p>
-                </div>
+            <div class="stat-card">
+                <div class="stat-number">250K+</div>
+                <div class="stat-label">TOTAL DOWNLOADS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">SYSTEM UPTIME</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">15MIN</div>
+                <div class="stat-label">AVG RESPONSE</div>
             </div>
         </div>
     </section>
 
-    <!-- ===== CONTACT SECTION ===== -->
-    <section id="contact" class="py-20 px-4">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-12 gradient-text">Get in Touch</h2>
-            
-            <div class="glass p-12 rounded-lg">
-                <h3 class="text-2xl font-bold mb-8 gradient-accent">Developer Contact Information</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="glass-secondary p-8 rounded-lg">
-                        <h4 class="text-xl font-bold mb-4 text-cyan-400">Telegram</h4>
-                        <a href="https://t.me/relaxFlyvic" target="_blank" class="text-indigo-400 hover:text-indigo-300 text-lg font-bold break-all">
-                            @relaxFlyvic
-                        </a>
-                        <p class="text-gray-400 mt-4">Fastest response time 💬</p>
-                    </div>
-
-                    <div class="glass-secondary p-8 rounded-lg">
-                        <h4 class="text-xl font-bold mb-4 text-cyan-400">WhatsApp</h4>
-                        <a href="https://wa.me/34632076449" target="_blank" class="text-indigo-400 hover:text-indigo-300 text-lg font-bold">
-                            +34 632 07 64 49
-                        </a>
-                        <p class="text-gray-400 mt-4">For custom requests 📱</p>
-                    </div>
-                </div>
-
-                <div class="mt-12 p-6 bg-red-500/10 border border-red-500/30 rounded-lg">
-                    <p class="text-red-400 font-bold mb-2">⚠️ Security Warning</p>
-                    <p class="text-gray-400">Only contact through official links above. Do not trust other sources.</p>
-                </div>
+    <!-- ===== SUPPORT SECTION ===== -->
+    <section class="support-section" id="supportSection" style="display: none;">
+        <div id="support" class="support-title">24/7 SUPPORT</div>
+        <div class="support-grid">
+            <div class="support-card">
+                <div class="support-name">TELEGRAM</div>
+                <div class="support-value">@relaxFlyvic</div>
+                <button class="support-button" onclick="copyToClipboard('@relaxFlyvic')">COPY</button>
+                <a href="https://t.me/relaxFlyvic" target="_blank" class="support-button" style="text-decoration: none; display: inline-block; margin-top: 8px;">OPEN</a>
+            </div>
+            <div class="support-card">
+                <div class="support-name">WHATSAPP</div>
+                <div class="support-value">+34 632 07 64 49</div>
+                <button class="support-button" onclick="copyToClipboard('+34 632 07 64 49')">COPY</button>
+                <a href="https://wa.me/34632076449" target="_blank" class="support-button" style="text-decoration: none; display: inline-block; margin-top: 8px;">OPEN</a>
+            </div>
+            <div class="support-card">
+                <div class="support-name">INSTANT CHAT</div>
+                <div class="support-value">Real-time Assistance</div>
+                <button class="support-button" onclick="toggleChat()">OPEN CHAT</button>
             </div>
         </div>
     </section>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="bg-gradient-to-t from-indigo-900/20 to-transparent py-10 px-4 border-t border-indigo-500/20">
-        <div class="max-w-7xl mx-auto text-center text-gray-500">
-            <p>© 2024 RATFLIX SHOP - All Rights Reserved | Made with ❤️</p>
-            <p class="mt-2 text-sm">Use products responsibly and in accordance with local laws</p>
+    <footer class="footer" id="footer" style="display: none;">
+        <div class="footer-content">
+            <div class="footer-text">RATFLIX ELITE PLATFORM</div>
+            <div class="footer-divider"></div>
+            <div class="footer-text">2024 UNDERGROUND NETWORK | ALL RIGHTS RESERVED</div>
+            <div class="footer-text" style="margin-top: 10px; color: #666; font-size: 0.8rem;">USE RESPONSIBLY AND IN ACCORDANCE WITH LOCAL LAWS</div>
         </div>
     </footer>
 
     <!-- ===== PURCHASE MODAL ===== -->
     <div class="modal" id="purchaseModal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalProductName">Product Name</h2>
-                <button class="modal-close" onclick="closePurchaseModal()">✕</button>
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-title" id="modalTitle">PRODUCT NAME</div>
+            
+            <div class="modal-section">
+                <h3>DESCRIPTION</h3>
+                <p class="modal-text" id="modalDescription"></p>
             </div>
 
             <div class="modal-section">
-                <h3>Product Details</h3>
-                <div style="background: rgba(99, 102, 241, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                    <p id="modalProductDesc" style="color: #cbd5e1; margin-bottom: 10px;"></p>
-                    <p style="color: #64748b; font-size: 0.9rem;">⬇️ Downloads: <span id="modalProductDownloads"></span></p>
+                <h3>DEVELOPER CONTACT</h3>
+                <div class="contact-box">
+                    <div class="contact-item">
+                        <div>
+                            <div class="contact-label">TELEGRAM</div>
+                            <div class="contact-value">@relaxFlyvic</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard('@relaxFlyvic')">COPY</button>
+                    </div>
+                    <div class="contact-item">
+                        <div>
+                            <div class="contact-label">WHATSAPP</div>
+                            <div class="contact-value">+34 632 07 64 49</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard('+34 632 07 64 49')">COPY</button>
+                    </div>
                 </div>
             </div>
 
             <div class="modal-section">
-                <h3>💼 Contact Developer to Purchase</h3>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <span class="contact-label">Telegram:</span>
-                        <span class="contact-value">@relaxFlyvic</span>
-                        <button class="copy-btn" onclick="copyToClipboard('@relaxFlyvic')">Copy</button>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-label">WhatsApp:</span>
-                        <span class="contact-value">+34 632 07 64 49</span>
-                        <button class="copy-btn" onclick="copyToClipboard('+34 632 07 64 49')">Copy</button>
-                    </div>
-                </div>
-                <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 15px;">
-                    📌 Tell the developer the product name. Instant delivery after payment!
-                </p>
+                <h3>QUICK ACCESS</h3>
+                <a href="https://t.me/relaxFlyvic" target="_blank" class="link-button">TELEGRAM</a>
+                <a href="https://wa.me/34632076449" target="_blank" class="link-button">WHATSAPP</a>
             </div>
 
             <div class="modal-section">
-                <h3>Quick Links</h3>
-                <a href="https://t.me/relaxFlyvic" target="_blank" class="btn-secondary" style="width: 100%; display: inline-block; text-align: center; margin-bottom: 10px; text-decoration: none;">
-                    📱 Open Telegram
-                </a>
-                <a href="https://wa.me/34632076449" target="_blank" class="btn-accent" style="width: 100%; display: inline-block; text-align: center; text-decoration: none;">
-                    💬 Open WhatsApp
-                </a>
-            </div>
-
-            <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); padding: 12px; border-radius: 8px; margin-top: 15px;">
-                <p style="color: #86efac; font-size: 0.9rem; margin: 0;">✅ Secure transactions • ✅ Instant delivery • ✅ 24/7 Support</p>
+                <div class="contact-box" style="border-color: var(--primary-red); background: rgba(255, 0, 0, 0.05);">
+                    <p class="modal-text" style="margin: 0; color: var(--primary-red);">INSTANT DELIVERY • SECURE PAYMENT • 24/7 SUPPORT</p>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- ===== CHAT BOX ===== -->
-    <div class="chat-box glass hidden-element" id="chatBox">
+    <div class="chat-box hidden" id="chatBox">
         <div class="chat-header">
-            <span>🤖 RATFLIX Assistant</span>
-            <button onclick="toggleChat()" style="background: none; border: none; color: white; cursor: pointer;">✕</button>
+            <span>RATFLIX AI</span>
+            <button onclick="toggleChat()">×</button>
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="message ai">
-                <div class="message-bubble">👋 Hello! I'm your RATFLIX AI Assistant. How can I help you today?</div>
+                <div class="message-bubble">GREETINGS. HOW CAN I ASSIST?</div>
             </div>
         </div>
         <div class="chat-input">
-            <input type="text" id="chatInput" placeholder="Type your question..." onkeypress="handleChatInput(event)">
-            <button onclick="sendMessage()">Send</button>
+            <input type="text" id="chatInput" placeholder="TYPE MESSAGE..." onkeypress="handleChatInput(event)">
+            <button onclick="sendMessage()">SEND</button>
         </div>
     </div>
 
-    <button class="chat-toggle" id="chatToggle" onclick="toggleChat()">💬</button>
+    <button class="chat-toggle" id="chatToggle" onclick="toggleChat()">AI</button>
 
     <!-- ===== ADMIN PANEL ===== -->
     <div class="admin-panel" id="adminPanel">
         <div class="admin-header">
-            <span>⚙️ Control Panel</span>
-            <button onclick="toggleAdminPanel()" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.5rem;">✕</button>
+            <span>ADMIN CONTROL</span>
+            <button onclick="toggleAdminPanel()">×</button>
         </div>
 
         <div class="admin-content">
-            <!-- Login Section -->
             <div id="adminLogin" class="admin-section">
-                <h3>Admin Login</h3>
-                <input type="password" id="adminPassword" placeholder="Enter password" class="admin-input">
-                <button class="admin-btn" onclick="adminLogin()">Login</button>
-                <div id="loginError" style="color: var(--accent); display: none; margin-top: 10px;"></div>
+                <h3>LOGIN</h3>
+                <input type="password" id="adminPassword" placeholder="PASSWORD" class="admin-input">
+                <button class="admin-btn" onclick="adminLogin()">ENTER</button>
+                <div id="loginError" style="color: var(--primary-red); display: none; margin-top: 10px; font-size: 0.9rem;"></div>
             </div>
 
-            <!-- Admin Dashboard -->
             <div id="adminDashboard" class="hidden-element">
-                <!-- Add Product -->
                 <div class="admin-section">
-                    <h3>➕ Add New Product</h3>
-                    <input type="text" id="productName" placeholder="Product Name" class="admin-input">
-                    <input type="text" id="productType" placeholder="Type (shot/hologram/panel/protection)" class="admin-input">
-                    <textarea id="productDesc" placeholder="Product Description" class="admin-input" rows="3" style="resize: vertical;"></textarea>
-                    <input type="text" id="productImage" placeholder="Image URL" class="admin-input">
-                    <button class="admin-btn" onclick="addProduct()">Add Product</button>
+                    <h3>ADD PRODUCT</h3>
+                    <input type="text" id="productName" placeholder="PRODUCT NAME" class="admin-input">
+                    <input type="text" id="productType" placeholder="PRODUCT TYPE" class="admin-input">
+                    <textarea id="productDesc" placeholder="DESCRIPTION" class="admin-input" rows="3" style="resize: vertical;"></textarea>
+                    <input type="number" id="productDownloads" placeholder="DOWNLOADS" class="admin-input">
+                    <button class="admin-btn" onclick="addProduct()">ADD PRODUCT</button>
                 </div>
 
-                <!-- Products List -->
                 <div class="admin-section">
-                    <h3>📦 Manage Products</h3>
+                    <h3>MANAGE PRODUCTS</h3>
                     <div id="productsList"></div>
                 </div>
 
-                <!-- Site Settings -->
-                <div class="admin-section">
-                    <h3>⚙️ Site Settings</h3>
-                    <input type="text" id="siteTitle" placeholder="Site Title" class="admin-input">
-                    <textarea id="siteDescription" placeholder="Site Description" class="admin-input" rows="3"></textarea>
-                    <button class="admin-btn" onclick="saveSiteSettings()">Save Settings</button>
-                </div>
-
-                <!-- Logout -->
-                <button class="admin-btn danger" onclick="adminLogout()">Logout</button>
+                <button class="admin-btn danger" onclick="adminLogout()">LOGOUT</button>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPTS -->
     <script>
-        // ===== DATA STORAGE =====
+        // ===== DATA ===== 
         let adminLoggedIn = false;
         let products = JSON.parse(localStorage.getItem('ratflixProducts')) || [
             {
                 id: 1,
-                name: "Free Fire Script Pro",
-                type: "shot",
-                description: "Advanced Free Fire script with exclusive features and real-time detection evasion. Trusted by thousands of players worldwide.",
-                image: "https://images.unsplash.com/photo-1538481143235-b716cc61bfff?w=500&h=500&fit=crop",
-                downloads: 1250
+                name: "CERTIFICATE GBOX ESING",
+                type: "CERTIFICATE",
+                description: "Advanced GBOX certificate system with enterprise-level validation. Multi-layer authentication protocol with quantum encryption. Maximum security clearance with instant verification process.",
+                downloads: 3450,
+                active: true
             },
             {
                 id: 2,
-                name: "Hologram Protection",
-                type: "hologram",
-                description: "Advanced hologram-based protection with military-grade encryption. Next-generation security system.",
-                image: "https://images.unsplash.com/photo-1559163853-4b378003988e?w=500&h=500&fit=crop",
-                downloads: 890
+                name: "REGISDIT",
+                type: "REGISTRY",
+                description: "Advanced registry modification system with deep system integration. Complete control over system parameters and configurations. Undetectable modifications with full redundancy and backup systems.",
+                downloads: 2890,
+                active: true
             },
             {
                 id: 3,
-                name: "Admin Panel V3",
-                type: "panel",
-                description: "Professional control panel with complete management features. All-in-one solution for administrators.",
-                image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=500&fit=crop",
-                downloads: 650
+                name: "PANEL REZN MODZ",
+                type: "PANEL",
+                description: "Premium control panel with REZN modifications. Advanced configuration options with real-time monitoring. Professional-grade management interface with unlimited customization.",
+                downloads: 2200,
+                active: true
             },
             {
                 id: 4,
-                name: "Sensi Pack",
-                type: "protection",
-                description: "Sensitive data protection pack with advanced encryption and security features. Comprehensive data safety.",
-                image: "https://images.unsplash.com/photo-1555949519-3c20e3dcb943?w=500&h=500&fit=crop",
-                downloads: 2100
-            },
-            {
-                id: 5,
-                name: "Certificate Gbox Esing",
-                type: "protection",
-                description: "Premium certificate-based protection with Gbox technology integration. Enterprise-grade security solution.",
-                image: "https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=500&h=500&fit=crop",
-                downloads: 1450
-            },
-            {
-                id: 6,
-                name: "Nettina Guard",
-                type: "shot",
-                description: "Advanced detection evasion system with continuous learning algorithms. Stay undetected at all times.",
-                image: "https://images.unsplash.com/photo-1563509137-53d6f8b21a15?w=500&h=500&fit=crop",
-                downloads: 1875
+                name: "SENSI PAC",
+                type: "PROTECTION",
+                description: "Sensitive data protection package with military-grade encryption. Complete privacy suite with advanced obfuscation. Bank-level security for critical information with zero-trace guarantee.",
+                downloads: 4100,
+                active: true
             }
         ];
 
-        // ===== AI CHATBOT RESPONSES =====
         const aiResponses = {
-            "hello": "Hello! 👋 Welcome to RATFLIX. How can I assist you today?",
-            "hi": "Hi there! 😊 What can I help you with?",
-            "products": "We offer scripts, protection packages, panels, and more. Check our product catalog!",
-            "how to buy": "1️⃣ Choose a product\n2️⃣ Click 'Buy Now'\n3️⃣ Contact developer via Telegram or WhatsApp\n4️⃣ Get instant delivery after payment ⚡",
-            "safe": "Yes! All our products are 100% secure and regularly updated 🔒",
-            "updates": "We provide daily updates to ensure maximum protection ✨",
-            "support": "24/7 support available via Telegram or WhatsApp 💬",
-            "contact": "📱 Telegram: @relaxFlyvic\n📞 WhatsApp: +34 632 07 64 49",
-            "security": "All transactions and products are secured with military-grade encryption",
-            "download": "Click 'Buy Now' on any product to see how to purchase and download",
-            "guarantee": "All products come with instant delivery and 24/7 support",
-            "price": "Contact the developer for pricing information"
+            "hello": "GREETINGS. READY TO ASSIST.",
+            "hi": "WELCOME TO RATFLIX.",
+            "help": "ASK ABOUT PRODUCTS, PRICING, OR SUPPORT.",
+            "products": "WE OFFER ELITE SOLUTIONS. CHECK STORE FOR DETAILS.",
+            "buy": "CLICK BUY ON PRODUCT. CONTACT DEVELOPER FOR PAYMENT.",
+            "contact": "TELEGRAM: @relaxFlyvic | WHATSAPP: +34 632 07 64 49",
+            "safe": "ALL PRODUCTS ARE SECURE AND REGULARLY UPDATED.",
+            "support": "24/7 SUPPORT VIA TELEGRAM OR WHATSAPP.",
+            "price": "CONTACT DEVELOPER FOR PRICING.",
+            "stats": "50K+ USERS | 250K+ DOWNLOADS | 99.9% UPTIME",
+            "delivery": "INSTANT DELIVERY AFTER PAYMENT. 100% GUARANTEED.",
+            "payment": "CONTACT DEVELOPER VIA TELEGRAM OR WHATSAPP."
         };
 
-        // ===== FUNCTIONS =====
+        // ===== ENTRANCE ANIMATION ===== 
+        function skipEntrance() {
+            gsap.to("#entranceContainer", {
+                opacity: 0,
+                duration: 0.8,
+                onComplete: function() {
+                    document.getElementById('entranceContainer').classList.add('hidden');
+                    showMainContent();
+                }
+            });
+        }
+
+        function showMainContent() {
+            const elements = ['#navbar', '#storeSection', '#statsSection', '#supportSection', '#footer'];
+            elements.forEach(el => {
+                document.querySelector(el).style.display = '';
+            });
+            
+            gsap.from("#navbar", { y: -50, opacity: 0, duration: 0.6 });
+            gsap.from("#storeSection", { y: 50, opacity: 0, duration: 0.8, delay: 0.2 });
+            gsap.from("#statsSection", { y: 50, opacity: 0, duration: 0.8, delay: 0.4 });
+            gsap.from("#supportSection", { y: 50, opacity: 0, duration: 0.8, delay: 0.6 });
+            gsap.from("#footer", { y: 30, opacity: 0, duration: 0.6, delay: 0.8 });
+        }
+
+        setTimeout(() => {
+            const entrance = document.getElementById('entranceContainer');
+            if (!entrance.classList.contains('hidden')) {
+                skipEntrance();
+            }
+        }, 5000);
+
+        // ===== RENDER PRODUCTS =====
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
-            grid.innerHTML = products.map(product => `
-                <div class="product-card fade-up">
-                    <span class="product-tag">${product.type.toUpperCase()}</span>
-                    <div class="product-image">
-                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/500x280?text=${encodeURIComponent(product.name)}'">
+            grid.innerHTML = products.map((p, i) => `
+                <div class="product-card slide-up" style="animation-delay: ${i * 0.1}s;">
+                    <div class="product-type">${p.type}</div>
+                    <div class="product-name">${p.name}</div>
+                    <div class="product-description">${p.description}</div>
+                    <div class="product-stats">
+                        <span>DOWNLOADS: ${p.downloads}</span>
+                        <span style="color: var(--primary-red);">${p.active ? 'ACTIVE' : 'OFFLINE'}</span>
                     </div>
-                    <div class="product-content">
-                        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 10px;">${product.name}</h3>
-                        <p style="color: #cbd5e1; margin-bottom: 15px; font-size: 0.95rem; flex-grow: 1;">${product.description}</p>
-                        <p class="product-downloads">⬇️ ${product.downloads}+ Downloads</p>
-                    </div>
-                    <button class="btn-buy" onclick="openPurchaseModal(${product.id})">Buy Now</button>
+                    <button class="buy-button" onclick="openModal(${p.id})">BUY NOW</button>
                 </div>
             `).join('');
         }
 
-        function openPurchaseModal(id) {
+        function openModal(id) {
             const product = products.find(p => p.id === id);
             if (!product) return;
 
-            document.getElementById('modalProductName').textContent = product.name;
-            document.getElementById('modalProductDesc').textContent = product.description;
-            document.getElementById('modalProductDownloads').textContent = product.downloads + '+';
-            
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalDescription').textContent = product.description;
             document.getElementById('purchaseModal').classList.add('active');
         }
 
-        function closePurchaseModal() {
+        function closeModal() {
             document.getElementById('purchaseModal').classList.remove('active');
         }
 
         function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('✅ Copied to clipboard!');
-            });
+            navigator.clipboard.writeText(text);
+            alert('COPIED TO CLIPBOARD');
         }
 
-        function scrollTo(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
-
+        // ===== CHAT =====
         function toggleChat() {
             const chatBox = document.getElementById('chatBox');
             const chatToggle = document.getElementById('chatToggle');
-            chatBox.classList.toggle('hidden-element');
-            chatToggle.classList.toggle('hidden-element');
-        }
-
-        function toggleAdminPanel() {
-            const panel = document.getElementById('adminPanel');
-            panel.classList.toggle('active');
+            chatBox.classList.toggle('hidden');
+            chatToggle.classList.toggle('hidden');
         }
 
         function handleChatInput(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
+            if (e.key === 'Enter') sendMessage();
         }
 
         function sendMessage() {
@@ -1128,16 +1539,9 @@
 
             if (!userMessage) return;
 
-            // User message
-            messages.innerHTML += `
-                <div class="message user">
-                    <div class="message-bubble">${input.value}</div>
-                </div>
-            `;
+            messages.innerHTML += `<div class="message user"><div class="message-bubble">${input.value}</div></div>`;
 
-            // AI Response
-            let response = "I'm not sure about that. Feel free to ask about products, how to buy, support, or contact info! 😊";
-            
+            let response = "COMMAND NOT RECOGNIZED. PLEASE TRY AGAIN.";
             for (const [key, value] of Object.entries(aiResponses)) {
                 if (userMessage.includes(key)) {
                     response = value;
@@ -1146,16 +1550,17 @@
             }
 
             setTimeout(() => {
-                messages.innerHTML += `
-                    <div class="message ai">
-                        <div class="message-bubble">${response}</div>
-                    </div>
-                `;
+                messages.innerHTML += `<div class="message ai"><div class="message-bubble">${response}</div></div>`;
                 messages.scrollTop = messages.scrollHeight;
             }, 300);
 
             input.value = '';
             messages.scrollTop = messages.scrollHeight;
+        }
+
+        // ===== ADMIN =====
+        function toggleAdminPanel() {
+            document.getElementById('adminPanel').classList.toggle('active');
         }
 
         function adminLogin() {
@@ -1166,10 +1571,9 @@
                 adminLoggedIn = true;
                 document.getElementById('adminLogin').classList.add('hidden-element');
                 document.getElementById('adminDashboard').classList.remove('hidden-element');
-                error.style.display = 'none';
                 loadProductsList();
             } else {
-                error.textContent = '❌ Incorrect password';
+                error.textContent = 'ACCESS DENIED - INVALID PASSWORD';
                 error.style.display = 'block';
             }
         }
@@ -1179,26 +1583,27 @@
             document.getElementById('adminPassword').value = '';
             document.getElementById('adminLogin').classList.remove('hidden-element');
             document.getElementById('adminDashboard').classList.add('hidden-element');
+            document.getElementById('loginError').style.display = 'none';
         }
 
         function addProduct() {
             const name = document.getElementById('productName').value;
             const type = document.getElementById('productType').value;
             const desc = document.getElementById('productDesc').value;
-            const image = document.getElementById('productImage').value;
+            const downloads = parseInt(document.getElementById('productDownloads').value) || 0;
 
-            if (!name || !type) {
-                alert('Please fill in all required fields');
+            if (!name || !type || !desc) {
+                alert('FILL ALL REQUIRED FIELDS');
                 return;
             }
 
             const newProduct = {
                 id: Date.now(),
-                name: name,
-                type: type,
+                name,
+                type,
                 description: desc,
-                image: image || 'https://via.placeholder.com/500x280?text=Product',
-                downloads: 0
+                downloads: downloads,
+                active: true
             };
 
             products.push(newProduct);
@@ -1206,22 +1611,21 @@
             renderProducts();
             loadProductsList();
 
-            // Clear inputs
             document.getElementById('productName').value = '';
             document.getElementById('productType').value = '';
             document.getElementById('productDesc').value = '';
-            document.getElementById('productImage').value = '';
+            document.getElementById('productDownloads').value = '';
 
-            alert('✅ Product added successfully');
+            alert('PRODUCT ADDED SUCCESSFULLY');
         }
 
         function deleteProduct(id) {
-            if (confirm('Are you sure you want to delete this product?')) {
+            if (confirm('DELETE THIS PRODUCT PERMANENTLY?')) {
                 products = products.filter(p => p.id !== id);
                 localStorage.setItem('ratflixProducts', JSON.stringify(products));
                 renderProducts();
                 loadProductsList();
-                alert('✅ Product deleted');
+                alert('PRODUCT DELETED');
             }
         }
 
@@ -1229,54 +1633,27 @@
             const list = document.getElementById('productsList');
             list.innerHTML = products.map(p => `
                 <div class="product-item">
-                    <div class="product-item-header">
-                        <div>
-                            <strong>${p.name}</strong> (${p.type})
-                        </div>
-                        <button onclick="deleteProduct(${p.id})">Delete</button>
-                    </div>
-                    <small style="color: #cbd5e1;">Downloads: ${p.downloads}</small>
+                    <strong>${p.name}</strong> (${p.type}) - ${p.downloads} DL
+                    <button class="admin-btn danger" style="width: auto; padding: 5px 10px; margin-top: 5px;" onclick="deleteProduct(${p.id})">DELETE</button>
                 </div>
             `).join('');
         }
 
-        function saveSiteSettings() {
-            const title = document.getElementById('siteTitle').value;
-            const desc = document.getElementById('siteDescription').value;
-
-            localStorage.setItem('siteTitle', title);
-            localStorage.setItem('siteDescription', desc);
-
-            alert('✅ Settings saved successfully');
-        }
-
-        // Close modal when clicking outside
+        // ===== MODAL CLOSE ON OUTSIDE CLICK =====
         document.getElementById('purchaseModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePurchaseModal();
+            if (e.target === this) closeModal();
+        });
+
+        // Keyboard shortcut to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('purchaseModal').classList.contains('active')) {
+                closeModal();
             }
         });
 
-        // ===== INITIALIZATION =====
+        // ===== INIT =====
         window.addEventListener('load', () => {
             renderProducts();
-
-            // Load saved settings
-            const savedTitle = localStorage.getItem('siteTitle');
-            if (savedTitle) {
-                document.getElementById('siteTitle').value = savedTitle;
-            }
-        });
-
-        // Add smooth scroll behavior
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
         });
     </script>
 </body>
